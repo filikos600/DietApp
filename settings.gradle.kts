@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "DietApp"
 include(":app")
+ 
