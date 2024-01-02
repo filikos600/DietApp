@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/DateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/infoView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="2dp">
+
+        <Button
+            android:id="@+id/PreviousButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:text="&lt;" />
+
+        <TextView
+            android:id="@+id/DateView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center"
+            android:textSize="32sp"
+            android:clickable="true"
+            android:text="Date" />
+
+        <Button
+            android:id="@+id/NextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:text="&gt;" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/infoView"
+        android:layout_width="330dp"
+        android:layout_height="330dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a sodales lorem. Nulla porttitor nisl in nisl varius imperdiet. Maecenas a auctor justo. Mauris id consectetur dolor, vitae hendrerit orci. Nam aliquam mi sed sapien consectetur, nec scelerisque mauris tincidunt. Morbi dapibus, neque sit amet tincidunt egestas, orci sapien pretium arcu, in auctor dolor nisl vel magna. Nam laoreet, nisi vel sollicitudin lacinia, leo massa feugiat erat, id bibendum sapien libero vel odio. Maecenas non ante sed purus ullamcorper fringilla sit amet eget nulla. Integer tempus rutrum ipsum in aliquam. Donec semper ac nisl ut gravida. Quisque in ipsum id leo venenatis porttitor. "
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DateLayout" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/generateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoView" />
+
+    <Button
+        android:id="@+id/generateButton"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="Generate report"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

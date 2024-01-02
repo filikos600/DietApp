@@ -13,15 +13,23 @@
         android:theme="@style/Theme.DietApp"
         tools:targetApi="31">
         <activity
-            android:name=".NewActivityScreen"
+            android:name=".com.example.dietapp.FoodScreen"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.DietApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".com.example.dietapp.CreateProductScreen">
+        </activity>
+        <activity
+            android:name=".com.example.dietapp.SettingsScreen">
+        </activity>
+        <activity
+            android:name=".com.example.dietapp.StatsScreen">
         </activity>
     </application>
 
