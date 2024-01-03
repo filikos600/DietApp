@@ -31,6 +31,18 @@
         <activity
             android:name=".com.example.dietapp.StatsScreen">
         </activity>
+        <activity
+            android:name=".AddActivityScreen">
+        </activity>
+        <activity
+            android:name=".DishesScreen">
+        </activity>
+        <activity
+            android:name=".MainScreen">
+        </activity>
+        <activity
+            android:name=".NewActivityScreen">
+        </activity>
     </application>
 
 </manifest>
