@@ -1,4 +1,4 @@
-package com.example.dietapp.com.example.dietapp
+package com.example.dietapp
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dietapp.R
 
 class ProductsScreen  : AppCompatActivity(){
     private lateinit var searchView: TextView
@@ -22,7 +21,7 @@ class ProductsScreen  : AppCompatActivity(){
     private lateinit var imageView: TextView
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
-    
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {

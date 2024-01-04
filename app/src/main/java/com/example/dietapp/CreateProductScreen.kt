@@ -1,17 +1,11 @@
-package com.example.dietapp.com.example.dietapp
+package com.example.dietapp
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dietapp.R
 import java.util.Calendar
 
 class CreateProductScreen  : AppCompatActivity(){
