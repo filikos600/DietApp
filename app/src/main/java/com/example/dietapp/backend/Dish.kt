@@ -15,12 +15,6 @@ data class Dish (
         }
         return a
     }
-}
 
 
-fun main(){
-    var product1 = Product("prod1", 100f)
-    var product2 = Product("prod2", 200f)
-    var my_dish = Dish("amciu", (listOf(Pair(product1, 1f), Pair(product2, 1f))))
-    println(my_dish.print_calories())
 }
