@@ -2,7 +2,9 @@ package com.example.dietapp
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -10,11 +12,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class StatsScreen : AppCompatActivity(){
+class StatsScreen : Fragment(){
+
     private lateinit var previousButton: Button
     private lateinit var dateView: TextView
     private lateinit var nextButton: Button
@@ -26,23 +30,23 @@ class StatsScreen : AppCompatActivity(){
     private val spinnerItems = arrayOf("Day", "Week", "Month", "3 Months", "6 Months", "Year")
     private var currentItemIndex = 0
 
-    override fun onCreate(savedInstanceState: Bundle?)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View?
     {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.stats_screen)
+        val view = inflater.inflate(R.layout.stats_screen, container, false)
 
-        previousButton = findViewById(R.id.PreviousButton)
-        dateView = findViewById(R.id.DateView)
-        nextButton = findViewById(R.id.NextButton)
-        infoView = findViewById(R.id.infoView)
-        dateSpinner = findViewById(R.id.spinner)
-        generateButton = findViewById(R.id.generateButton)
+        previousButton = view.findViewById(R.id.PreviousButton)
+        dateView = view.findViewById(R.id.DateView)
+        nextButton = view.findViewById(R.id.NextButton)
+        infoView = view.findViewById(R.id.infoView)
+        dateSpinner = view.findViewById(R.id.spinner)
+        generateButton = view.findViewById(R.id.generateButton)
 
         // Update date
         updateDateLabel()
 
         // Set up ArrayAdapter for the Spinner
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerItems)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerItems)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = adapter
 
@@ -73,12 +77,12 @@ class StatsScreen : AppCompatActivity(){
         }
 
         generateButton.setOnClickListener {
-            Toast.makeText(applicationContext,"report not generated, what u gonna do now?", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"report not generated, what u gonna do now?", Toast.LENGTH_SHORT).show()
         }
 
         dateView.setOnClickListener(View.OnClickListener {
             val datePicker = DatePickerDialog(
-                this,
+                requireContext(),
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     calendar.set(Calendar.YEAR, year)
                     calendar.set(Calendar.MONTH, month)
@@ -91,6 +95,7 @@ class StatsScreen : AppCompatActivity(){
             )
             datePicker.show()
         })
+        return view
     }
 
     private fun updateDateLabel() {

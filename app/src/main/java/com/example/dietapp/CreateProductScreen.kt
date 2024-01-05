@@ -1,14 +1,18 @@
 package com.example.dietapp
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import java.util.Calendar
 
-class CreateProductScreen  : AppCompatActivity(){
+class CreateProductScreen  : Fragment(){
     private lateinit var imageView: TextView
     private lateinit var nameEdit: EditText
     private lateinit var caloriesEdit: EditText
@@ -18,18 +22,18 @@ class CreateProductScreen  : AppCompatActivity(){
     private lateinit var backButton: Button
 
 
-    override fun onCreate(savedInstanceState: Bundle?)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View?
     {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.create_product_screen)
+        val view = inflater.inflate(R.layout.create_product_screen, container, false)
 
-        imageView = findViewById(R.id.ImageEdit)
-        nameEdit = findViewById(R.id.NameEdit)
-        caloriesEdit = findViewById(R.id.CaloriesEdit)
-        portionEdit = findViewById(R.id.PortionEdit)
-        nutricionalValuesView = findViewById(R.id.NutricionalValuesView)
-        addButton = findViewById(R.id.AddButton)
-        backButton = findViewById(R.id.BackButton)
+        imageView = view.findViewById(R.id.ImageEdit)
+        nameEdit = view.findViewById(R.id.NameEdit)
+        caloriesEdit = view.findViewById(R.id.CaloriesEdit)
+        portionEdit = view.findViewById(R.id.PortionEdit)
+        nutricionalValuesView = view.findViewById(R.id.NutricionalValuesView)
+        addButton = view.findViewById(R.id.AddButton)
+        backButton = view.findViewById(R.id.BackButton)
 
 
         addButton.setOnClickListener {
@@ -39,14 +43,15 @@ class CreateProductScreen  : AppCompatActivity(){
             var portion = portionEdit.text.toString().trim()
 
             if (name.isEmpty() || calories.isEmpty() || portion.isEmpty()){
-                Toast.makeText(applicationContext,"Please fill all info", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Please fill all info", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(applicationContext,"added $name product, $calories calories and $portion portion", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"added $name product, $calories calories and $portion portion", Toast.LENGTH_SHORT).show()
             }
         }
 
         backButton.setOnClickListener {
-            finish()
+            activity?.finish()
         }
+        return view
     }
 }

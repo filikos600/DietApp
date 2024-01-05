@@ -1,14 +1,18 @@
 package com.example.dietapp
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.material.internal.ContextUtils.getActivity
 
-class NewActivityScreen : AppCompatActivity() {
+class NewActivityScreen : Fragment() {
 
     private lateinit var addActivity: Button
     private lateinit var cancel: Button
@@ -16,26 +20,25 @@ class NewActivityScreen : AppCompatActivity() {
     private lateinit var desc: EditText
     private lateinit var kcalReduction: EditText
 
-    override fun onCreate(savedInstanceState: Bundle?)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View?
     {
-        super.onCreate(savedInstanceState)
+        val view = inflater.inflate(R.layout.new_activity_screen, container, false)
 
-        setContentView(R.layout.new_activity_screen)
-
-        addActivity = findViewById(R.id.add)
-        cancel = findViewById(R.id.cancel)
-        name = findViewById(R.id.activityName)
-        desc = findViewById(R.id.activityDesc)
-        kcalReduction = findViewById(R.id.kcalReduction)
+        addActivity = view.findViewById(R.id.add)
+        cancel = view.findViewById(R.id.cancel)
+        name = view.findViewById(R.id.activityName)
+        desc = view.findViewById(R.id.activityDesc)
+        kcalReduction = view.findViewById(R.id.kcalReduction)
 
         addActivity.setOnClickListener {
             var result = "name: " + name.text.toString() + " desc: " + desc.text.toString() + " kcal usage: " + kcalReduction.text.toString()
-            Toast.makeText(applicationContext,result, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),result, Toast.LENGTH_SHORT).show()
         }
 
         cancel.setOnClickListener {
-            Toast.makeText(applicationContext,"cancel is pressed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"cancel is pressed", Toast.LENGTH_SHORT).show()
         }
-
+        return view
     }
 }
