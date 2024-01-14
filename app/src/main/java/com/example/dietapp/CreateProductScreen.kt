@@ -25,6 +25,8 @@ class CreateProductScreen  : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
+        container?.removeAllViews()
+
         val view = inflater.inflate(R.layout.create_product_screen, container, false)
 
         imageView = view.findViewById(R.id.ImageEdit)
@@ -50,7 +52,9 @@ class CreateProductScreen  : Fragment(){
         }
 
         backButton.setOnClickListener {
-            activity?.finish()
+            val fragment = DishesScreen()
+            val fragmentManager = activity?.supportFragmentManager
+            fragmentManager?.beginTransaction()?.replace(R.id.createProductScreen, fragment)?.addToBackStack(null)?.commit()
         }
         return view
     }

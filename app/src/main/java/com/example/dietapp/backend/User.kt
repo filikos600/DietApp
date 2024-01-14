@@ -25,7 +25,7 @@ class User() {
         dishList.add(triple)
     }
 
-    public fun GetKcalBalance(_dayRange: Long = 1): Float
+    public fun getKcalBalance(_dayRange: Long = 1): Float
     {
         val minimalDate = LocalDate.now().minusDays(_dayRange - 1)
         var kcal = 0f
@@ -35,11 +35,8 @@ class User() {
                 kcal += product.first * product.second.calories
 
         for(dish in dishList)
-        {
             if(minimalDate <= dish.third)
-                for(product in dish.second.list_of_product)
-                    kcal += dish.first * product.first.calories
-        }
+                kcal += dish.first * dish.second.getDishCalories()
 
         for(activity in activityList)
             if(minimalDate <= activity.third)
@@ -48,7 +45,7 @@ class User() {
         return kcal
     }
 
-    public fun GetCarbohydatesIntake(_dayRange: Long = 1): Float
+    public fun getCarbohydatesIntake(_dayRange: Long = 1): Float
     {
         val minimalDate = LocalDate.now().minusDays(_dayRange - 1)
         var carbohydrates = 0f
@@ -58,16 +55,13 @@ class User() {
                 carbohydrates += product.first * product.second.carbohydrates
 
         for(dish in dishList)
-        {
             if(minimalDate <= dish.third)
-                for(product in dish.second.list_of_product)
-                    carbohydrates += dish.first * product.first.carbohydrates
-        }
+                carbohydrates += dish.first * dish.second.getDishCarbohydrates()
 
         return carbohydrates
     }
 
-    public fun GetFatsIntake(_dayRange: Long = 1): Float
+    public fun getFatsIntake(_dayRange: Long = 1): Float
     {
         val minimalDate = LocalDate.now().minusDays(_dayRange - 1)
         var fats = 0f
@@ -77,16 +71,13 @@ class User() {
                 fats += product.first * product.second.fats
 
         for(dish in dishList)
-        {
             if(minimalDate <= dish.third)
-                for(product in dish.second.list_of_product)
-                    fats += dish.first * product.first.fats
-        }
+                fats += dish.first * dish.second.getDishFats()
 
         return fats
     }
 
-    public fun GetSugarIntake(_dayRange: Long = 1): Float
+    public fun getSugarIntake(_dayRange: Long = 1): Float
     {
         val minimalDate = LocalDate.now().minusDays(_dayRange - 1)
         var sugar = 0f
@@ -96,16 +87,13 @@ class User() {
                 sugar += product.first * product.second.sugar
 
         for(dish in dishList)
-        {
             if(minimalDate <= dish.third)
-                for(product in dish.second.list_of_product)
-                    sugar += dish.first * product.first.sugar
-        }
+                sugar += dish.first * dish.second.getDishSugar()
 
         return sugar
     }
 
-    public fun GetProteinIntake(_dayRange: Long = 1): Float
+    public fun getProteinIntake(_dayRange: Long = 1): Float
     {
         val minimalDate = LocalDate.now().minusDays(_dayRange - 1)
         var protein = 0f
@@ -115,16 +103,13 @@ class User() {
                 protein += product.first * product.second.protein
 
         for(dish in dishList)
-        {
             if(minimalDate <= dish.third)
-                for(product in dish.second.list_of_product)
-                    protein += dish.first * product.first.protein
-        }
+                protein += dish.first * dish.second.getDishProtein()
 
         return protein
     }
 
-    public fun GetSaltIntake(_dayRange: Long = 1): Float
+    public fun getSaltIntake(_dayRange: Long = 1): Float
     {
         val minimalDate = LocalDate.now().minusDays(_dayRange - 1)
         var salt = 0f
@@ -134,12 +119,21 @@ class User() {
                 salt += product.first * product.second.salt
 
         for(dish in dishList)
-        {
             if(minimalDate <= dish.third)
-                for(product in dish.second.list_of_product)
-                    salt += dish.first * product.first.salt
-        }
+                salt += dish.first * dish.second.getDishSalt()
 
         return salt
+    }
+
+    public fun getUserInfo(_dayRange: Long): String
+    {
+        var text = ""
+        text += "Calories balance: ${getKcalBalance(_dayRange)} kcal\n"
+        text += "Carbohydrates: ${getCarbohydatesIntake(_dayRange)} g\n"
+        text += "Sugar: ${getSugarIntake(_dayRange)} g\n"
+        text += "Fats: ${getFatsIntake(_dayRange)} g\n"
+        text += "Proteins: ${getProteinIntake(_dayRange)} g\n"
+        text += "Salt: ${getSaltIntake(_dayRange)} g\n"
+        return text
     }
 }

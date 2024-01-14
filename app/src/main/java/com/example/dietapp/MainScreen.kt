@@ -10,16 +10,20 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.dietapp.backend.User
 
 class MainScreen : Fragment() {
 
     private lateinit var addDish: Button
     private lateinit var addActivity: Button
     private lateinit var summary: TextView
+    private lateinit var user: User
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
+        container?.removeAllViews()
+
         val view = inflater.inflate(R.layout.main_screen, container, false)
 
         addDish = view.findViewById(R.id.addDish)
@@ -27,12 +31,22 @@ class MainScreen : Fragment() {
         summary = view.findViewById(R.id.summary)
 
         addDish.setOnClickListener {
-            summary.text = "Adding dish (WIP)"
+            val fragment = DishesScreen()
+            val fragmentManager = activity?.supportFragmentManager
+            fragmentManager?.beginTransaction()?.replace(R.id.mainScreen, fragment)?.addToBackStack(null)?.commit()
         }
 
         addActivity.setOnClickListener {
-            summary.text = "Adding activity (WIP)"
+            val fragment = AddActivityScreen()
+            val fragmentManager = activity?.supportFragmentManager
+            fragmentManager?.beginTransaction()?.replace(R.id.mainScreen, fragment)?.addToBackStack(null)?.commit()
         }
+
     return view
+    }
+
+    fun getUserData()
+    {
+        //TODO read data about user from some file
     }
 }

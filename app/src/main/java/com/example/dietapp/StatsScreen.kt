@@ -33,6 +33,8 @@ class StatsScreen : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
+        container?.removeAllViews()
+
         val view = inflater.inflate(R.layout.stats_screen, container, false)
 
         previousButton = view.findViewById(R.id.PreviousButton)

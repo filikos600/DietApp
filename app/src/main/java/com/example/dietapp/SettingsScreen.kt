@@ -18,6 +18,8 @@ class SettingsScreen : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
+        container?.removeAllViews()
+
         val view = inflater.inflate(R.layout.settings_screen, container, false)
 
         val setting_1: Switch = view.findViewById(R.id.switch_1)

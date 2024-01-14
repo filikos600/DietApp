@@ -30,6 +30,8 @@ class ProductsScreen  : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
+        container?.removeAllViews()
+
         val view = inflater.inflate(R.layout.products_screen, container, false)
 
         searchView = view.findViewById(R.id.SearchView)
@@ -58,8 +60,9 @@ class ProductsScreen  : Fragment(){
         }
 
         addProductButton.setOnClickListener {
-            val intent = Intent(requireContext(), CreateProductScreen::class.java)
-            startActivity(intent)
+            val fragment = CreateProductScreen()
+            val fragmentManager = activity?.supportFragmentManager
+            fragmentManager?.beginTransaction()?.replace(R.id.productsScreen, fragment)?.addToBackStack(null)?.commit()
         }
 
         previousButton.setOnClickListener {
