@@ -52,9 +52,7 @@ class CreateProductScreen  : Fragment(){
         }
 
         backButton.setOnClickListener {
-            val fragment = DishesScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.createProductScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.createProductToProductsButton()
         }
         return view
     }

@@ -44,7 +44,7 @@
             android:name=".DishesScreen">
         </activity>
         <activity
-            android:name=".NewActivityScreen">
+            android:name=".CreateActivityScreen">
         </activity>
     </application>
 

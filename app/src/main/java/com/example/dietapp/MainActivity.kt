@@ -61,15 +61,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun dishesToFoodButton() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DishesScreen()).commit()
-    }
-
-    override fun dishesToProductButton() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setCheckedItem(R.id.nav_products)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FoodScreen()).commit()
     }
 
+    override fun dishesToProductButton() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        //TODO create new position in navbar or something
+        navigationView.setCheckedItem(R.id.nav_products)
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
+    }
 
+    override fun activityToCreateActivityButton() {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateActivityScreen()).commit()
+    }
 
+    override fun createActivityToActivityButton() {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AddActivityScreen()).commit()
+    }
+
+    override fun createProductToProductsButton(){
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
+    }
+
+    override fun foodsToCreateFoodButton(){
+        //TODO create new screen or something
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateProductScreen()).commit()
+    }
+
+    override fun productsToCreateProductButton()
+    {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateProductScreen()).commit()
+    }
 //    override fun onBackPressed() {
 //        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
 //            drawerLayout.closeDrawer(GravityCompat.START)

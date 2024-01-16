@@ -4,7 +4,7 @@ import java.time.LocalDate
 class User() {
 
     var productList: ArrayList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>()
-    var dishList: ArrayList<Triple<Int, Dish, LocalDate>> = arrayListOf<Triple<Int, Dish, LocalDate>>()
+    var foodList: ArrayList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>()
     var activityList: ArrayList<Triple<Int, Activity, LocalDate>> = arrayListOf<Triple<Int, Activity, LocalDate>>()
 
     public fun AddActivity(_exerciseTime: Int, _activity: Activity)
@@ -19,10 +19,10 @@ class User() {
         productList.add(triple)
     }
 
-    public fun AddDish(_portions: Int, _dish: Dish)
+    public fun AddDish(_portions: Int, _food: Food)
     {
-        val triple = Triple(_portions, _dish, LocalDate.now())
-        dishList.add(triple)
+        val triple = Triple(_portions, _food, LocalDate.now())
+        foodList.add(triple)
     }
 
     public fun getKcalBalance(_dayRange: Long = 1): Float
@@ -34,7 +34,7 @@ class User() {
             if(minimalDate <= product.third)
                 kcal += product.first * product.second.calories
 
-        for(dish in dishList)
+        for(dish in foodList)
             if(minimalDate <= dish.third)
                 kcal += dish.first * dish.second.getDishCalories()
 
@@ -54,7 +54,7 @@ class User() {
             if(minimalDate <= product.third)
                 carbohydrates += product.first * product.second.carbohydrates
 
-        for(dish in dishList)
+        for(dish in foodList)
             if(minimalDate <= dish.third)
                 carbohydrates += dish.first * dish.second.getDishCarbohydrates()
 
@@ -70,7 +70,7 @@ class User() {
             if(minimalDate <= product.third)
                 fats += product.first * product.second.fats
 
-        for(dish in dishList)
+        for(dish in foodList)
             if(minimalDate <= dish.third)
                 fats += dish.first * dish.second.getDishFats()
 
@@ -86,7 +86,7 @@ class User() {
             if(minimalDate <= product.third)
                 sugar += product.first * product.second.sugar
 
-        for(dish in dishList)
+        for(dish in foodList)
             if(minimalDate <= dish.third)
                 sugar += dish.first * dish.second.getDishSugar()
 
@@ -102,7 +102,7 @@ class User() {
             if(minimalDate <= product.third)
                 protein += product.first * product.second.protein
 
-        for(dish in dishList)
+        for(dish in foodList)
             if(minimalDate <= dish.third)
                 protein += dish.first * dish.second.getDishProtein()
 
@@ -118,7 +118,7 @@ class User() {
             if(minimalDate <= product.third)
                 salt += product.first * product.second.salt
 
-        for(dish in dishList)
+        for(dish in foodList)
             if(minimalDate <= dish.third)
                 salt += dish.first * dish.second.getDishSalt()
 

@@ -1,6 +1,5 @@
 package com.example.dietapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -12,8 +11,9 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.dietapp.backend.Product
+import com.example.dietapp.backend.User
 
 class ProductsScreen  : Fragment(){
     private lateinit var searchView: TextView
@@ -26,6 +26,13 @@ class ProductsScreen  : Fragment(){
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
+    private lateinit var user: User
+    private lateinit var selectedProduct: Product
+
+    private var filter = ""
+    private var buttons: ArrayList<Button> = arrayListOf<Button>()
+    private var pageNumber = 0
+    private var products: ArrayList<Product> = arrayListOf<Product>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -44,6 +51,30 @@ class ProductsScreen  : Fragment(){
         amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)
 
+        for(i in 0..5)
+        {
+            val button = Button(requireContext())
+            button.setOnClickListener {
+                try {
+                    val index = products.indexOfFirst { product -> product.name == button.text }
+                    val product = products.get(index)
+                    selectedProduct = product
+                    detailsView.text = product.printProductInfo()
+                }
+                catch(_: Exception)
+                {
+
+                }
+            }
+            buttons.add(button)
+            val params = LinearLayout.LayoutParams(0,100)
+            params.weight = 1f
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT
+            productsLayout.addView(button, params)
+        }
+        setButtonsForProducts(products, 0)
+
         searchView.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE ||
                 (event != null && event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER)
@@ -60,17 +91,21 @@ class ProductsScreen  : Fragment(){
         }
 
         addProductButton.setOnClickListener {
-            val fragment = CreateProductScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.productsScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.productsToCreateProductButton()
         }
 
         previousButton.setOnClickListener {
-            Toast.makeText(requireContext(),"switch to previous page on list", Toast.LENGTH_SHORT).show()
+            val filteredActivities = findProducts(filter)
+            if(pageNumber > 0)
+                pageNumber -= 1
+            setButtonsForProducts(filteredActivities,pageNumber)
         }
 
         nextButton.setOnClickListener {
-            Toast.makeText(requireContext(),"switch to next page on list", Toast.LENGTH_SHORT).show()
+            val filteredActivities = findProducts(filter)
+            if(pageNumber < filteredActivities.size/6)
+                pageNumber += 1
+            setButtonsForProducts(filteredActivities,pageNumber)
         }
 
         addButton.setOnClickListener {
@@ -78,5 +113,34 @@ class ProductsScreen  : Fragment(){
             Toast.makeText(requireContext(),"added $amount of product", Toast.LENGTH_SHORT).show()
         }
         return view
+    }
+
+    fun findProducts(name: String): ArrayList<Product>
+    {
+        if(name.isBlank())
+            return products
+        val foundProduct: ArrayList<Product> = arrayListOf<Product>()
+        for(product in products)
+        {
+            if(product.name.startsWith(name, true))
+                foundProduct.add(product)
+        }
+        return foundProduct
+    }
+
+    fun setButtonsForProducts(products: ArrayList<Product>, pageNumber: Int)
+    {
+        for(i in 0..5)
+        {
+            var button = buttons[i]
+            button.setVisibility(View.VISIBLE)
+            try {
+                button.text = products[pageNumber*6 + i].name
+            }
+            catch(_: Exception)
+            {
+                button.setVisibility(View.INVISIBLE)
+            }
+        }
     }
 }

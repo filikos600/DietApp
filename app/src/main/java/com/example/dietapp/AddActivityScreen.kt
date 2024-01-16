@@ -29,15 +29,18 @@ class AddActivityScreen : Fragment() {
     private lateinit var addButton: Button
 
     private lateinit var user: User
-    private lateinit var filter: String
     private lateinit var selectedActivity: Activity
 
+    private var filter = ""
+    private var buttons: ArrayList<Button> = arrayListOf<Button>()
     private var pageNumber = 0
     private var activities: ArrayList<Activity> = arrayListOf<Activity>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
+        createTestActivities()
+
         container?.removeAllViews()
 
         val view = inflater.inflate(R.layout.add_activity_screen, container, false)
@@ -54,7 +57,6 @@ class AddActivityScreen : Fragment() {
         for(i in 0..5)
         {
             val button = Button(requireContext())
-            button.id = i
             button.setOnClickListener {
                 try {
                     val index = activities.indexOfFirst { activity -> activity.name == button.text }
@@ -67,6 +69,7 @@ class AddActivityScreen : Fragment() {
 
                 }
             }
+            buttons.add(button)
             val params = LinearLayout.LayoutParams(0,100)
             params.weight = 1f
             params.height = MATCH_PARENT
@@ -101,9 +104,7 @@ class AddActivityScreen : Fragment() {
         }
 
         addActivityButton.setOnClickListener {
-            val fragment = NewActivityScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.addActivityScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.activityToCreateActivityButton()
         }
 
         previousButton.setOnClickListener{
@@ -115,7 +116,7 @@ class AddActivityScreen : Fragment() {
 
         nextButton.setOnClickListener{
             val filteredActivities = findActivities(filter)
-            if(pageNumber < floor(filteredActivities.size.toFloat()/6.0f))
+            if(pageNumber < filteredActivities.size/6)
                 pageNumber += 1
             setButtonsForActivities(filteredActivities,pageNumber)
         }
@@ -124,7 +125,9 @@ class AddActivityScreen : Fragment() {
 
     fun findActivities(name: String): ArrayList<Activity>
     {
-        var foundActivities: ArrayList<Activity> = arrayListOf<Activity>()
+        if(name.isBlank())
+            return activities
+        val foundActivities: ArrayList<Activity> = arrayListOf<Activity>()
         for(activity in activities)
         {
             if(activity.name.startsWith(name, true))
@@ -137,13 +140,25 @@ class AddActivityScreen : Fragment() {
     {
         for(i in 0..5)
         {
+            var button = buttons[i]
+            button.setVisibility(View.VISIBLE)
             try {
-                var button: Button?
-                button = view?.findViewById(i)
-                button?.text = activities.get(pageNumber * 6 + i).name
+                button.text = activities[pageNumber*6 + i].name
             }
             catch(_: Exception)
-            { }
+            {
+                button.setVisibility(View.INVISIBLE)
+            }
+        }
+    }
+
+    fun createTestActivities()
+    {
+        for(i in 0..10)
+        {
+            val name = "test$i"
+            val activity = Activity(name, "test", 20f)
+            activities.add(activity)
         }
     }
 }
