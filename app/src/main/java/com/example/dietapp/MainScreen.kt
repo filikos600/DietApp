@@ -1,14 +1,13 @@
 package com.example.dietapp
 
-import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.dietapp.backend.User
 
@@ -18,6 +17,8 @@ class MainScreen : Fragment() {
     private lateinit var addActivity: Button
     private lateinit var summary: TextView
     private lateinit var user: User
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -31,18 +32,29 @@ class MainScreen : Fragment() {
         summary = view.findViewById(R.id.summary)
 
         addDish.setOnClickListener {
-            val fragment = DishesScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.mainScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.mainToAddDishButton()
         }
 
         addActivity.setOnClickListener {
-            val fragment = AddActivityScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.mainScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.mainToActivityButton()
         }
 
+        CacheTest()
+
     return view
+    }
+
+    private fun CacheTest(){
+        sharedPreferences =  requireActivity().getPreferences(Context.MODE_PRIVATE)
+
+        var count = sharedPreferences.getInt("app_open_count", 0)
+        summary.text = "App opened: $count times"
+        count++
+
+        with(sharedPreferences.edit()) {
+            putInt("app_open_count", count)
+            apply()
+        }
     }
 
     fun getUserData()

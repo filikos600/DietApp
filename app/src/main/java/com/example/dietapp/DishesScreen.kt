@@ -31,17 +31,11 @@ class DishesScreen : Fragment() {
         //daySummary.text = printUserInfo()
 
         addBasicIngredient.setOnClickListener {
-            //TODO go to product screen
-            val fragment = ProductsScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.dishesScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.dishesToFoodButton()
         }
 
         addDish.setOnClickListener {
-            //TODO go to food screen
-            val fragment = ProductsScreen()
-            val fragmentManager = activity?.supportFragmentManager
-            fragmentManager?.beginTransaction()?.replace(R.id.dishesScreen, fragment)?.addToBackStack(null)?.commit()
+            (activity as? MainActivityInterface)?.dishesToProductButton()
         }
     return view
     }
