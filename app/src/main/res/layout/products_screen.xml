@@ -15,7 +15,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/ProductsLayout"
+        app:layout_constraintBottom_toTopOf="@+id/ProductsRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         <Button
             android:id="@+id/AddProductButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginStart="2dp"
@@ -49,10 +49,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ProductsLayout"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ProductsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -62,8 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TopLayout">
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/TopLayout" />
 
     <LinearLayout
         android:id="@+id/ArrowsLayout"
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProductsLayout">
+        app:layout_constraintTop_toBottomOf="@+id/ProductsRecycler">
 
         <Button
             android:id="@+id/PreviousButton"

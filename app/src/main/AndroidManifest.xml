@@ -23,13 +23,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FoodScreen">
+            android:name=".Food.FoodScreen">
         </activity>
         <activity
-            android:name=".ProductsScreen">
+            android:name=".Products.ProductsScreen">
         </activity>
         <activity
-            android:name=".CreateProductScreen">
+            android:name=".Products.CreateProductScreen">
         </activity>
         <activity
             android:name=".SettingsScreen">

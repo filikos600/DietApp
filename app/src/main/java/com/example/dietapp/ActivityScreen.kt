@@ -31,9 +31,9 @@ class ActivityScreen : Fragment() {
     private lateinit var selectedActivity: Activity
 
     private var filter = ""
-    private var buttons: ArrayList<Button> = arrayListOf<Button>()
+    private var buttons: MutableList<Button> = arrayListOf<Button>()
     private var pageNumber = 0
-    private var activities: ArrayList<Activity> = arrayListOf<Activity>()
+    private var activities: MutableList<Activity> = arrayListOf<Activity>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -124,11 +124,11 @@ class ActivityScreen : Fragment() {
         return view
     }
 
-    fun findActivities(name: String): ArrayList<Activity>
+    fun findActivities(name: String): MutableList<Activity>
     {
         if(name.isBlank())
             return activities
-        val foundActivities: ArrayList<Activity> = arrayListOf<Activity>()
+        val foundActivities: MutableList<Activity> = arrayListOf<Activity>()
         for(activity in activities)
         {
             if(activity.name.startsWith(name, true))
@@ -137,7 +137,7 @@ class ActivityScreen : Fragment() {
         return foundActivities
     }
 
-    fun setButtonsForActivities(activities: ArrayList<Activity>, pageNumber: Int)
+    fun setButtonsForActivities(activities: MutableList<Activity>, pageNumber: Int)
     {
         for(i in 0..5)
         {

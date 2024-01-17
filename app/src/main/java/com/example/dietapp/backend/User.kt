@@ -3,9 +3,9 @@ import java.time.LocalDate
 
 class User() {
 
-    var productList: ArrayList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>()
-    var foodList: ArrayList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>()
-    var activityList: ArrayList<Triple<Int, Activity, LocalDate>> = arrayListOf<Triple<Int, Activity, LocalDate>>()
+    var productList: MutableList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>()
+    var foodList: MutableList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>()
+    var activityList: MutableList<Triple<Int, Activity, LocalDate>> = arrayListOf<Triple<Int, Activity, LocalDate>>()
 
     public fun AddActivity(_exerciseTime: Int, _activity: Activity)
     {

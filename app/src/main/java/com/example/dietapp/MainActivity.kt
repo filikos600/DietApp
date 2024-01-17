@@ -7,6 +7,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import com.example.dietapp.Food.CreateFoodScreen
+import com.example.dietapp.Food.FoodScreen
+import com.example.dietapp.Products.CreateProductScreen
+import com.example.dietapp.Products.ProductsScreen
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainActivityInterface {
