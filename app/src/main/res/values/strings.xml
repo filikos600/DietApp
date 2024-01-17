@@ -15,4 +15,6 @@
     <string name="menu_dishes">Dishes</string>
     <string name="menu_activities">Activities</string>
     <string name="menu_products">Products</string>
+    <string name="menu_stats">Statistics</string>
+    <string name="menu_settings">Settings</string>
 </resources>

@@ -44,6 +44,7 @@ class StatsScreen : Fragment(){
         dateSpinner = view.findViewById(R.id.spinner)
         generateButton = view.findViewById(R.id.generateButton)
 
+        val currentDate = calendar.timeInMillis
         // Update date
         updateDateLabel()
 
@@ -95,6 +96,7 @@ class StatsScreen : Fragment(){
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
+            datePicker.datePicker.maxDate = currentDate
             datePicker.show()
         })
         return view

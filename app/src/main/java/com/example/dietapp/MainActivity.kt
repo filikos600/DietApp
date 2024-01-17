@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_dishes -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DishesScreen()).commit()
             R.id.nav_activities -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AddActivityScreen()).commit()
             R.id.nav_products -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
+            R.id.nav_stats -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, StatsScreen()).commit()
+            R.id.nav_settings -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsScreen()).commit()
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
