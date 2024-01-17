@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(item.itemId){
             R.id.nav_home -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MainScreen()).commit()
             R.id.nav_dishes -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DishesScreen()).commit()
-            R.id.nav_activities -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AddActivityScreen()).commit()
+            R.id.nav_activities -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ActivityScreen()).commit()
             R.id.nav_products -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
             R.id.nav_stats -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, StatsScreen()).commit()
             R.id.nav_settings -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsScreen()).commit()
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun mainToActivityButton() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_activities)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AddActivityScreen()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ActivityScreen()).commit()
     }
 
     override fun dishesToFoodButton() {
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun createActivityToActivityButton() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AddActivityScreen()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ActivityScreen()).commit()
     }
 
     override fun createProductToProductsButton(){

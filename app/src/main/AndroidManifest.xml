@@ -38,7 +38,7 @@
             android:name=".StatsScreen">
         </activity>
         <activity
-            android:name=".AddActivityScreen">
+            android:name=".ActivityScreen">
         </activity>
         <activity
             android:name=".DishesScreen">

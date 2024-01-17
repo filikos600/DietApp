@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.backend.Activity
 
 class CreateActivityScreen : Fragment() {
@@ -18,7 +19,7 @@ class CreateActivityScreen : Fragment() {
     private lateinit var desc: EditText
     private lateinit var kcalReduction: EditText
 
-    private lateinit var newActivity: Activity
+    private lateinit var mainActivityModel: MainActivityModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -26,6 +27,8 @@ class CreateActivityScreen : Fragment() {
         container?.removeAllViews()
 
         val view = inflater.inflate(R.layout.create_activity_screen, container, false)
+
+        mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
         addActivity = view.findViewById(R.id.add)
         cancel = view.findViewById(R.id.cancel)
@@ -38,7 +41,8 @@ class CreateActivityScreen : Fragment() {
                 Toast.makeText(requireContext(),"Fill in all inputs", Toast.LENGTH_SHORT).show()
             else
             {
-                newActivity = Activity(name.text.toString(),desc.text.toString(),kcalReduction.text.toString().toFloat())
+                val newActivity = Activity(name.text.toString(),desc.text.toString(),kcalReduction.text.toString().toFloat() )
+                mainActivityModel.activities.add(newActivity)
                 (activity as? MainActivityInterface)?.createActivityToActivityButton()
             }
         }

@@ -12,8 +12,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.backend.Food
-import com.example.dietapp.backend.User
 import com.example.dietapp.backend.Product
 
 
@@ -28,8 +28,8 @@ class FoodScreen  : Fragment(){
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
-    private lateinit var user: User
     private lateinit var selectedFood: Food
+    private lateinit var mainActivityModel: MainActivityModel
 
     private var filter = ""
     private var buttons: ArrayList<Button> = arrayListOf<Button>()
@@ -44,6 +44,8 @@ class FoodScreen  : Fragment(){
         container?.removeAllViews()
 
         val view = inflater.inflate(R.layout.food_screen, container, false)
+
+        mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
         searchView = view.findViewById(R.id.SearchView)
         addProductButton = view.findViewById(R.id.AddProductButton)
@@ -113,8 +115,11 @@ class FoodScreen  : Fragment(){
         }
 
         addButton.setOnClickListener {
-            var amount = amountSelector.text.toString()
-            Toast.makeText(requireContext(),"added $amount of product", Toast.LENGTH_SHORT).show()
+            if(::selectedFood.isInitialized && amountSelector.text.isNotBlank()) {
+                var amount = amountSelector.text.toString().toInt()
+                mainActivityModel.user.AddFood(amount, selectedFood)
+            }
+
         }
         return view
     }

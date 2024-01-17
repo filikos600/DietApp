@@ -26,7 +26,6 @@ class ProductsScreen  : Fragment(){
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
-    private lateinit var user: User
     private lateinit var selectedProduct: Product
 
     private var filter = ""
@@ -113,8 +112,10 @@ class ProductsScreen  : Fragment(){
         }
 
         addButton.setOnClickListener {
-            var amount = amountSelector.text.toString()
-            Toast.makeText(requireContext(),"added $amount of product", Toast.LENGTH_SHORT).show()
+            if(::selectedProduct.isInitialized && amountSelector.text.isNotBlank()) {
+                var amount = amountSelector.text.toString().toInt()
+                mainActivityModel.user.AddProduct(amount, selectedProduct)
+            }
         }
         return view
     }

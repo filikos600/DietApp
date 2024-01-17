@@ -12,12 +12,11 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.backend.Activity
 import com.example.dietapp.backend.User
-import kotlin.math.floor
 
-class AddActivityScreen : Fragment() {
+class ActivityScreen : Fragment() {
 
     private lateinit var searchView: TextView
     private lateinit var addActivityButton: Button
@@ -28,7 +27,7 @@ class AddActivityScreen : Fragment() {
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
-    private lateinit var user: User
+    private lateinit var mainActivityModel: MainActivityModel
     private lateinit var selectedActivity: Activity
 
     private var filter = ""
@@ -43,7 +42,9 @@ class AddActivityScreen : Fragment() {
 
         container?.removeAllViews()
 
-        val view = inflater.inflate(R.layout.add_activity_screen, container, false)
+        val view = inflater.inflate(R.layout.activity_screen, container, false)
+
+        mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
         searchView = view.findViewById(R.id.SearchView)
         addActivityButton = view.findViewById(R.id.AddActivityButton)
@@ -97,9 +98,9 @@ class AddActivityScreen : Fragment() {
         }
 
         addButton.setOnClickListener {
-            if(!amountSelector.text.isBlank())
-            {
-                user.AddActivity(amountSelector.text.toString().toInt(), selectedActivity)
+            if(::selectedActivity.isInitialized && amountSelector.text.isNotBlank()) {
+                var amount = amountSelector.text.toString().toInt()
+                mainActivityModel.user.AddActivity(amount, selectedActivity)
             }
         }
 

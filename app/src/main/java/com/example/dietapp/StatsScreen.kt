@@ -13,7 +13,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
 
@@ -29,6 +31,7 @@ class StatsScreen : Fragment(){
 
     private val spinnerItems = arrayOf("Day", "Week", "Month", "3 Months", "6 Months", "Year")
     private var currentItemIndex = 0
+    private lateinit var mainActivityModel: MainActivityModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -36,6 +39,8 @@ class StatsScreen : Fragment(){
         container?.removeAllViews()
 
         val view = inflater.inflate(R.layout.stats_screen, container, false)
+
+        mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
         previousButton = view.findViewById(R.id.PreviousButton)
         dateView = view.findViewById(R.id.DateView)
@@ -72,15 +77,27 @@ class StatsScreen : Fragment(){
         previousButton.setOnClickListener {
             calendar.add(Calendar.DAY_OF_MONTH, -1)
             updateDateLabel()
+            infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
         }
 
         nextButton.setOnClickListener {
             calendar.add(Calendar.DAY_OF_MONTH, 1)
             updateDateLabel()
+            infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
         }
 
         generateButton.setOnClickListener {
-            Toast.makeText(requireContext(),"report not generated, what u gonna do now?", Toast.LENGTH_SHORT).show()
+            var report = ""
+            when(currentItemIndex) {
+                0 -> report = mainActivityModel.user.getUserInfo()
+                1 -> report = mainActivityModel.user.getUserInfo(_Range = 7)
+                2 -> report = mainActivityModel.user.getUserInfo(_Range = 30)
+                3 -> report = mainActivityModel.user.getUserInfo(_Range = 90)
+                4 -> report = mainActivityModel.user.getUserInfo(_Range = 90)
+                5 -> report = mainActivityModel.user.getUserInfo(_Range = 180)
+                6 -> report = mainActivityModel.user.getUserInfo(_Range = 365)
+            }
+            //TODO save report to file
         }
 
         dateView.setOnClickListener(View.OnClickListener {
@@ -107,5 +124,12 @@ class StatsScreen : Fragment(){
         dateView.text = dateFormat.format(calendar.time)
     }
 
+    private fun calendarToLocalDate(): LocalDate
+    {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        return LocalDate.of(year,month,day)
+    }
 
 }
