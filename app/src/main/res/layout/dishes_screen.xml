@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/addBasicIngredient"
+        android:id="@+id/addProduct"
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_marginBottom="256dp"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/addDish"
+        android:id="@+id/addFood"
         android:layout_width="140dp"
         android:layout_height="80dp"
         android:layout_marginBottom="124dp"

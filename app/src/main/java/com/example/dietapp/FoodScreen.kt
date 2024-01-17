@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.dietapp.backend.Food
 import com.example.dietapp.backend.User
+import com.example.dietapp.backend.Product
 
 
 class FoodScreen  : Fragment(){
@@ -38,6 +39,8 @@ class FoodScreen  : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
+        createTestFood()
+
         container?.removeAllViews()
 
         val view = inflater.inflate(R.layout.food_screen, container, false)
@@ -142,6 +145,15 @@ class FoodScreen  : Fragment(){
             {
                 button.setVisibility(View.INVISIBLE)
             }
+        }
+    }
+
+    private fun createTestFood(){
+        for(i in 0..10)
+        {
+            val name = "test$i"
+            val food = Food(name, listOf(Pair(Product("product1",12f),1f),Pair(Product("product2",24f),0.5f)))
+            foods.add(food)
         }
     }
 }

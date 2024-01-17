@@ -86,8 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun foodsToCreateFoodButton(){
-        //TODO create new screen or something
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateProductScreen()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateFoodScreen()).commit()
     }
 
     override fun productsToCreateProductButton()

@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/TopLayout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -52,7 +52,7 @@
     <LinearLayout
         android:id="@+id/ProductsLayout"
         android:layout_width="match_parent"
-        android:layout_height="292dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -63,30 +63,12 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TopLayout">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="product 1" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="product 2" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="product 3" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ArrowsLayout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -120,7 +102,7 @@
     <LinearLayout
         android:id="@+id/BottomLayout"
         android:layout_width="match_parent"
-        android:layout_height="273dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -137,17 +119,12 @@
             android:layout_height="wrap_content"
             android:text="very detailed information about everything that's important about currently selected product such as i don't really know what but I'm sure tehre's gonna be lots of them here for sure I promise trust me bro" />
 
-        <TextView
-            android:id="@+id/ImageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="insert obrazek here maybe idk?" />
-
         <EditText
             android:id="@+id/AmountSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="portions to add"
             android:maxLines="1"
             android:imeOptions="actionDone"
             android:inputType="numberDecimal" />

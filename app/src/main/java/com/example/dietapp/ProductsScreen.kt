@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.backend.Product
 import com.example.dietapp.backend.User
 
@@ -22,7 +23,6 @@ class ProductsScreen  : Fragment(){
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
     private lateinit var detailsView: TextView
-    private lateinit var imageView: TextView
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
@@ -32,7 +32,8 @@ class ProductsScreen  : Fragment(){
     private var filter = ""
     private var buttons: ArrayList<Button> = arrayListOf<Button>()
     private var pageNumber = 0
-    private var products: ArrayList<Product> = arrayListOf<Product>()
+
+    private lateinit var mainActivityModel: MainActivityModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -41,13 +42,14 @@ class ProductsScreen  : Fragment(){
 
         val view = inflater.inflate(R.layout.products_screen, container, false)
 
+        mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
+
         searchView = view.findViewById(R.id.SearchView)
         addProductButton = view.findViewById(R.id.AddProductButton)
         productsLayout = view.findViewById(R.id.ProductsLayout)
         previousButton = view.findViewById(R.id.PreviousButton)
         nextButton = view.findViewById(R.id.NextButton)
         detailsView = view.findViewById(R.id.DetailsView)
-        imageView = view.findViewById(R.id.ImageView)
         amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)
 
@@ -56,8 +58,8 @@ class ProductsScreen  : Fragment(){
             val button = Button(requireContext())
             button.setOnClickListener {
                 try {
-                    val index = products.indexOfFirst { product -> product.name == button.text }
-                    val product = products.get(index)
+                    val index = mainActivityModel.products.indexOfFirst { product -> product.name == button.text }
+                    val product = mainActivityModel.products.get(index)
                     selectedProduct = product
                     detailsView.text = product.printProductInfo()
                 }
@@ -73,7 +75,7 @@ class ProductsScreen  : Fragment(){
             params.width = ViewGroup.LayoutParams.MATCH_PARENT
             productsLayout.addView(button, params)
         }
-        setButtonsForProducts(products, 0)
+        setButtonsForProducts(mainActivityModel.products, 0)
 
         searchView.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE ||
@@ -118,9 +120,9 @@ class ProductsScreen  : Fragment(){
     fun findProducts(name: String): ArrayList<Product>
     {
         if(name.isBlank())
-            return products
+            return mainActivityModel.products
         val foundProduct: ArrayList<Product> = arrayListOf<Product>()
-        for(product in products)
+        for(product in mainActivityModel.products)
         {
             if(product.name.startsWith(name, true))
                 foundProduct.add(product)

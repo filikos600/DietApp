@@ -1,7 +1,7 @@
 package com.example.dietapp.backend
 
-data class Food (
-    var name : String,
+data class Food(
+    var name: String,
     var list_of_product: List<Pair<Product,Float>>
 ){
     fun getDishCalories(): Float{

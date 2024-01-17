@@ -12,8 +12,8 @@ import com.example.dietapp.backend.User
 
 class DishesScreen : Fragment() {
 
-    private lateinit var addBasicIngredient: Button
-    private lateinit var addDish: Button
+    private lateinit var addProduct: Button
+    private lateinit var addFood: Button
     private lateinit var daySummary: TextView
     private lateinit var user: User
 
@@ -24,18 +24,18 @@ class DishesScreen : Fragment() {
 
         val view = inflater.inflate(R.layout.dishes_screen, container, false)
 
-        addBasicIngredient = view.findViewById(R.id.addBasicIngredient)
-        addDish = view.findViewById(R.id.addDish)
+        addProduct = view.findViewById(R.id.addProduct)
+        addFood = view.findViewById(R.id.addFood)
         daySummary = view.findViewById(R.id.daySummary)
 
         //daySummary.text = printUserInfo()
 
-        addBasicIngredient.setOnClickListener {
-            (activity as? MainActivityInterface)?.dishesToFoodButton()
+        addProduct.setOnClickListener {
+            (activity as? MainActivityInterface)?.dishesToProductButton()
         }
 
-        addDish.setOnClickListener {
-            (activity as? MainActivityInterface)?.dishesToProductButton()
+        addFood.setOnClickListener {
+            (activity as? MainActivityInterface)?.dishesToFoodButton()
         }
     return view
     }

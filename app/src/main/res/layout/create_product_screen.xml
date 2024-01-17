@@ -11,11 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/NutricionalValuesView"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonsLayout"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp">
 
@@ -39,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="parent"
-
+            android:layout_marginVertical="10dp"
             android:ems="10"
             android:hint="Name"
             android:inputType="text"
@@ -54,12 +56,88 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
             android:ems="10"
             android:hint="Calories"
-            android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/PortionEdit"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/FatsEdit"
             app:layout_constraintTop_toBottomOf="@+id/NameEdit"
             tools:layout_editor_absoluteX="160dp" />
+
+        <EditText
+            android:id="@+id/FatsEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="Fats"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/CarbohydratesEdit"
+            app:layout_constraintTop_toBottomOf="@+id/CaloriesEdit"
+            tools:layout_editor_absoluteX="167dp" />
+
+        <EditText
+            android:id="@+id/CarbohydratesEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="Carbohydrates"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/SugarEdit"
+            app:layout_constraintTop_toBottomOf="@+id/FatsEdit"
+            tools:layout_editor_absoluteX="167dp" />
+
+        <EditText
+            android:id="@+id/SugarEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="Sugar"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/ProteinEdit"
+            app:layout_constraintTop_toBottomOf="@+id/CarbohydratesEdit"
+            tools:layout_editor_absoluteX="167dp" />
+
+        <EditText
+            android:id="@+id/ProteinEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="Protein"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/SaltEdit"
+            app:layout_constraintTop_toBottomOf="@+id/SugarEdit"
+            tools:layout_editor_absoluteX="167dp" />
+
+        <EditText
+            android:id="@+id/SaltEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="Salt"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/PortionEdit"
+            app:layout_constraintTop_toBottomOf="@+id/ProteinEdit"
+            tools:layout_editor_absoluteX="167dp" />
 
         <EditText
             android:id="@+id/PortionEdit"
@@ -68,28 +146,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginVertical="10dp"
             android:ems="10"
             android:hint="Portion"
-            android:inputType="text"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CaloriesEdit"
+            app:layout_constraintTop_toBottomOf="@+id/SaltEdit"
             tools:layout_editor_absoluteX="167dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/NutricionalValuesView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="nutricional values and stuff: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a sodales lorem. Nulla porttitor nisl in nisl varius imperdiet. Maecenas a auctor justo. Mauris id consectetur dolor, vitae hendrerit orci. Nam aliquam mi sed sapien consectetur, nec scelerisque mauris tincidunt. Morbi dapibus, neque sit amet tincidunt egestas, orci sapien pretium arcu, in auctor dolor nisl vel magna. Nam laoreet, nisi vel sollicitudin lacinia, leo massa feugiat erat, id bibendum sapien libero vel odio. Maecenas non ante sed purus ullamcorper fringilla sit amet eget nulla. Integer tempus rutrum ipsum in aliquam. Donec semper ac nisl ut gravida. Quisque in ipsum id leo venenatis porttitor. "
-        app:layout_constraintBottom_toTopOf="@+id/ButtonsLayout"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="0dp" />
 
     <LinearLayout
         android:id="@+id/ButtonsLayout"
@@ -102,7 +167,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NutricionalValuesView">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <Button
             android:id="@+id/AddButton"
