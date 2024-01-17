@@ -33,6 +33,8 @@ class ProductsScreen  : Fragment(){
     private var buttons: ArrayList<Button> = arrayListOf<Button>()
     private var pageNumber = 0
 
+    private val FIELDS_ON_PAGE = 5
+
     private lateinit var mainActivityModel: MainActivityModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +55,7 @@ class ProductsScreen  : Fragment(){
         amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)
 
-        for(i in 0..5)
+        for(i in 0..FIELDS_ON_PAGE-1)
         {
             val button = Button(requireContext())
             button.setOnClickListener {
@@ -105,7 +107,7 @@ class ProductsScreen  : Fragment(){
 
         nextButton.setOnClickListener {
             val filteredActivities = findProducts(filter)
-            if(pageNumber < filteredActivities.size/6)
+            if(pageNumber < filteredActivities.size/FIELDS_ON_PAGE)
                 pageNumber += 1
             setButtonsForProducts(filteredActivities,pageNumber)
         }
@@ -132,12 +134,12 @@ class ProductsScreen  : Fragment(){
 
     fun setButtonsForProducts(products: ArrayList<Product>, pageNumber: Int)
     {
-        for(i in 0..5)
+        for(i in 0..FIELDS_ON_PAGE-1)
         {
             var button = buttons[i]
             button.setVisibility(View.VISIBLE)
             try {
-                button.text = products[pageNumber*6 + i].name
+                button.text = products[pageNumber*FIELDS_ON_PAGE + i].name
             }
             catch(_: Exception)
             {
