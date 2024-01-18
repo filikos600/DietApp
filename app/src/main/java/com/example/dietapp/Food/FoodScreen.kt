@@ -3,26 +3,20 @@ package com.example.dietapp.Food
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dietapp.MainActivityInterface
-import com.example.dietapp.MainActivityModel
-import com.example.dietapp.Products.ProductsListAdapter
+import com.example.dietapp.Main.MainActivityInterface
+import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Food
-import com.example.dietapp.backend.Product
 
 
 class FoodScreen  : Fragment(){

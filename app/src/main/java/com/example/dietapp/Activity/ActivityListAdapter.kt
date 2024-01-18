@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dietapp.R
 import com.example.dietapp.backend.Activity
 
-class ActivityListAdapter(private val items: MutableList<Activity>, private val ahowActivityInfo: (input: Activity) -> Unit):
-
+class ActivityListAdapter(private val items: MutableList<Activity>, private val showActivityInfo: (input: Activity) -> Unit):
     RecyclerView.Adapter<ActivityListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,7 +31,7 @@ class ActivityListAdapter(private val items: MutableList<Activity>, private val 
         holder.textViewItem.text = item.name
 
         holder.textViewItem.setOnClickListener{
-            ahowActivityInfo(item)
+            showActivityInfo(item)
         }
 
         holder.buttonEdit.setOnClickListener {
@@ -44,6 +43,12 @@ class ActivityListAdapter(private val items: MutableList<Activity>, private val 
             items.removeAt(holder.adapterPosition)
             notifyDataSetChanged()
         }
+    }
+
+    fun setFilteredItems(filteredItems: MutableList<Activity>) {
+        items.clear()
+        items.addAll(filteredItems)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

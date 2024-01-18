@@ -10,10 +10,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.dietapp.Main.MainActivityModel
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Calendar
@@ -52,6 +51,7 @@ class StatsScreen : Fragment(){
         val currentDate = calendar.timeInMillis
         // Update date
         updateDateLabel()
+        infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
 
         // Set up ArrayAdapter for the Spinner
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerItems)

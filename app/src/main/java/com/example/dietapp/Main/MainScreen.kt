@@ -1,4 +1,4 @@
-package com.example.dietapp
+package com.example.dietapp.Main
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.dietapp.R
 import com.example.dietapp.backend.User
 
 class MainScreen : Fragment() {

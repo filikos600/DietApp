@@ -10,8 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.dietapp.MainActivityInterface
-import com.example.dietapp.MainActivityModel
+import com.example.dietapp.Main.MainActivityInterface
+import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Product
 

@@ -1,4 +1,4 @@
-package com.example.dietapp
+package com.example.dietapp.Main
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,13 +9,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import com.example.dietapp.Activity.ActivityScreen
 import com.example.dietapp.Activity.CreateActivityScreen
+import com.example.dietapp.DishesScreen
 import com.example.dietapp.Food.CreateFoodScreen
 import com.example.dietapp.Food.FoodScreen
 import com.example.dietapp.Products.CreateProductScreen
 import com.example.dietapp.Products.ProductsScreen
+import com.example.dietapp.R
+import com.example.dietapp.SettingsScreen
+import com.example.dietapp.StatsScreen
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainActivityInterface {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    MainActivityInterface {
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -31,7 +36,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
+            R.string.open_nav,
+            R.string.close_nav
+        )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 

@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dietapp.MainActivityModel
+import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Product
 
@@ -33,17 +31,8 @@ class CreateFoodScreen: Fragment() {
 
     private val chosenProductsWithPortions: MutableList<Pair<Product,Float>> = arrayListOf<Pair<Product,Float>>()
 
-    private var test = "abc"
-
     private lateinit var availableProductsAdapter: AvailableProductsListAdapter
     private lateinit var usedProductsAdapter: UsedProductsListAdapter
-
-    private lateinit var selectedProduct: Product
-    private var filter = ""
-    private var leftButtons: MutableList<Button> = arrayListOf<Button>()
-    private var rightButtons: MutableList<Button> = arrayListOf<Button>()
-    private var pageNumber = 0
-    private val FIELDS_ON_PAGE = 4
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?

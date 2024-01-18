@@ -3,43 +3,32 @@ package com.example.dietapp.Products
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dietapp.MainActivityInterface
-import com.example.dietapp.MainActivityModel
+import com.example.dietapp.Main.MainActivityInterface
+import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Product
-import com.example.dietapp.backend.User
 
 class ProductsScreen  : Fragment(){
     private lateinit var searchEdit: EditText
     private lateinit var addProductButton: Button
     private lateinit var productsRecycler: RecyclerView
-    private lateinit var previousButton: Button
-    private lateinit var nextButton: Button
     private lateinit var detailsView: TextView
     private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
-    private lateinit var user: User
     private lateinit var selectedProduct: Product
-
     private lateinit var mainActivityModel: MainActivityModel
-
     private lateinit var filteredItems: MutableList<Product>
-
     private lateinit var adapter: ProductsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +45,6 @@ class ProductsScreen  : Fragment(){
         searchEdit = view.findViewById(R.id.SearchEdit)
         addProductButton = view.findViewById(R.id.AddProductButton)
         productsRecycler = view.findViewById(R.id.ProductsRecycler)
-        previousButton = view.findViewById(R.id.PreviousButton)
-        nextButton = view.findViewById(R.id.NextButton)
         detailsView = view.findViewById(R.id.DetailsView)
         amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.backend.User
 
 class DishesScreen : Fragment() {
