@@ -7,6 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import com.example.dietapp.Activity.ActivityScreen
+import com.example.dietapp.Activity.CreateActivityScreen
 import com.example.dietapp.Food.CreateFoodScreen
 import com.example.dietapp.Food.FoodScreen
 import com.example.dietapp.Products.CreateProductScreen
@@ -74,7 +76,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun dishesToProductButton() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        //TODO create new position in navbar or something
         navigationView.setCheckedItem(R.id.nav_products)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
     }
@@ -90,15 +91,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun createProductToProductsButton(){
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
     }
-
-    override fun foodsToCreateFoodButton(){
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateFoodScreen()).commit()
-    }
-
-    override fun productsToCreateProductButton()
-    {
+    override fun productsToCreateProductButton() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateProductScreen()).commit()
     }
+    override fun foodsToCreateFoodButton() {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateFoodScreen()).commit()
+    }
+    override fun backToMainButton() {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MainScreen()).commit()
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setCheckedItem(R.id.nav_home)
+    }
+
 //    override fun onBackPressed() {
 //        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
 //            drawerLayout.closeDrawer(GravityCompat.START)

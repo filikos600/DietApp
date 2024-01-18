@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ActivityScreen"
+    tools:context=".Activity.ActivityScreen"
     android:id="@+id/addActivityScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,7 +16,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/ActivityLayout"
+        app:layout_constraintBottom_toTopOf="@+id/ActivityRecycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,27 +50,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ActivityLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ActivityRecycler"
         android:layout_width="match_parent"
         android:layout_height="292dp"
         android:orientation="vertical"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/ArrowsLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TopLayout">
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ArrowsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
@@ -79,26 +63,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ActivityLayout">
-
-        <Button
-            android:id="@+id/PreviousButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:text="&lt;" />
-
-        <Button
-            android:id="@+id/NextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:text="&gt;" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/TopLayout">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/BottomLayout"
@@ -112,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ArrowsLayout">
+        app:layout_constraintTop_toBottomOf="@+id/ActivityRecycler">
 
         <TextView
             android:id="@+id/DetailsView"

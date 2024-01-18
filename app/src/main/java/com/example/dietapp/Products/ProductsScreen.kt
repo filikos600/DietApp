@@ -68,8 +68,11 @@ class ProductsScreen  : Fragment(){
         }
 
         addButton.setOnClickListener {
-            var amount = amountSelector.text.toString()
-            Toast.makeText(requireContext(),"added $amount of product", Toast.LENGTH_SHORT).show()
+            if(::selectedProduct.isInitialized && amountSelector.text.isNotBlank()) {
+                var amount = amountSelector.text.toString().toInt()
+                mainActivityModel.user.AddProduct(amount, selectedProduct)
+                (activity as? MainActivityInterface)?.backToMainButton()
+            }
         }
         return view
     }

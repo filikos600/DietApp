@@ -10,4 +10,5 @@ interface MainActivityInterface {
     fun createProductToProductsButton()
     fun foodsToCreateFoodButton()
     fun productsToCreateProductButton()
+    fun backToMainButton()
 }

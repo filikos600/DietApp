@@ -21,6 +21,12 @@ class MainActivityModel : ViewModel() {
         products.add(Product("egg?", 15f))
         products.add(Product("egg!", 12f))
         products.add(Product("EGGGG", 42f, 12f, 6f, 4f, 3f, 1f, 2f))
+        for(i in 0..10)
+        {
+            val name = "test$i"
+            val activity = Activity(name, "test", 20f)
+            activities.add(activity)
+        }
 
 
         for(i in 0..8)
