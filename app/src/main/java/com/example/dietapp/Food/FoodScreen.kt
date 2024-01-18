@@ -70,6 +70,7 @@ class FoodScreen  : Fragment(){
             if(::selectedFood.isInitialized && amountSelector.text.isNotBlank()) {
                 var amount = amountSelector.text.toString().toInt()
                 mainActivityModel.user.AddFood(amount, selectedFood)
+                (activity as? MainActivityInterface)?.backToMainButton()
             }
 
         }
