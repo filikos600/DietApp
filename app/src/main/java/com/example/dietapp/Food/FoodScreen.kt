@@ -1,6 +1,8 @@
 package com.example.dietapp.Food
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +26,7 @@ import com.example.dietapp.backend.Product
 
 
 class FoodScreen  : Fragment(){
-    private lateinit var searchView: TextView
+    private lateinit var searchEdit: EditText
     private lateinit var addNewFoodButton: Button
     private lateinit var foodRecycler: RecyclerView
     private lateinit var detailsView: TextView
@@ -35,10 +37,8 @@ class FoodScreen  : Fragment(){
     private lateinit var selectedFood: Food
     private lateinit var mainActivityModel: MainActivityModel
 
-    private var filter = ""
-    private var buttons: MutableList<Button> = arrayListOf<Button>()
-    private var pageNumber = 0
-    private var foods: MutableList<Food> = arrayListOf<Food>()
+    private lateinit var filteredItems: MutableList<Food>
+    private lateinit var adapter: FoodListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -48,8 +48,9 @@ class FoodScreen  : Fragment(){
         val view = inflater.inflate(R.layout.food_screen, container, false)
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
+        filteredItems = mainActivityModel.foods.toMutableList()
 
-        searchView = view.findViewById(R.id.SearchView)
+        searchEdit = view.findViewById(R.id.SearchEdit)
         addNewFoodButton = view.findViewById(R.id.AddNewFoodButton)
         foodRecycler = view.findViewById(R.id.FoodRecycler)
         detailsView = view.findViewById(R.id.DetailsView)
@@ -57,9 +58,9 @@ class FoodScreen  : Fragment(){
         amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)
 
-
         foodRecycler.layoutManager = LinearLayoutManager(context)
-        foodRecycler.adapter = FoodListAdapter(mainActivityModel.foods, ::showFoodInfo)
+        adapter = FoodListAdapter(filteredItems, ::showFoodInfo)
+        foodRecycler.adapter = adapter
 
         addNewFoodButton.setOnClickListener {
             (activity as? MainActivityInterface)?.foodsToCreateFoodButton()
@@ -72,7 +73,28 @@ class FoodScreen  : Fragment(){
             }
 
         }
+
+        searchEdit.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchRecyclerView(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         return view
+    }
+
+    fun searchRecyclerView(searchValue: String) {
+        filteredItems = mainActivityModel.foods.toMutableList()
+        if (searchValue.isNotBlank()){
+            filteredItems = filteredItems.filter { item ->
+                item.name.contains(searchValue, ignoreCase = true)
+            }.toMutableList()
+        }
+        adapter.setFilteredItems(filteredItems)
     }
 
     fun showFoodInfo(food: Food){

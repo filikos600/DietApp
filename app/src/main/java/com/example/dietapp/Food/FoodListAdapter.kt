@@ -36,7 +36,6 @@ class FoodListAdapter (private val items: MutableList<Food>, private val showFoo
         }
 
         holder.buttonEdit.setOnClickListener {
-            //TODO editing thing
             Toast.makeText(it.context,"editing soon TM", Toast.LENGTH_SHORT).show()
         }
 
@@ -44,6 +43,12 @@ class FoodListAdapter (private val items: MutableList<Food>, private val showFoo
             items.removeAt(holder.adapterPosition)
             notifyDataSetChanged()
         }
+    }
+
+    fun setFilteredItems(filteredItems: MutableList<Food>) {
+        items.clear()
+        items.addAll(filteredItems)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

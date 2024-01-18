@@ -45,7 +45,14 @@ class ProductsListAdapter(private val items: MutableList<Product>, private val s
         }
     }
 
+    fun setFilteredItems(filteredItems: MutableList<Product>) {
+        items.clear()
+        items.addAll(filteredItems)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int {
         return items.size
     }
 }
+

@@ -1,6 +1,8 @@
 package com.example.dietapp.Products
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +24,7 @@ import com.example.dietapp.backend.Product
 import com.example.dietapp.backend.User
 
 class ProductsScreen  : Fragment(){
-    private lateinit var searchView: TextView
+    private lateinit var searchEdit: EditText
     private lateinit var addProductButton: Button
     private lateinit var productsRecycler: RecyclerView
     private lateinit var previousButton: Button
@@ -34,13 +36,11 @@ class ProductsScreen  : Fragment(){
     private lateinit var user: User
     private lateinit var selectedProduct: Product
 
-    private var filter = ""
-    private var buttons: MutableList<Button> = arrayListOf<Button>()
-    private var pageNumber = 0
-
-    private val FIELDS_ON_PAGE = 5
-
     private lateinit var mainActivityModel: MainActivityModel
+
+    private lateinit var filteredItems: MutableList<Product>
+
+    private lateinit var adapter: ProductsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -50,8 +50,10 @@ class ProductsScreen  : Fragment(){
         val view = inflater.inflate(R.layout.products_screen, container, false)
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
+        filteredItems = mainActivityModel.products.toMutableList()
+        adapter = ProductsListAdapter(filteredItems, ::showProductInfo)
 
-        searchView = view.findViewById(R.id.SearchView)
+        searchEdit = view.findViewById(R.id.SearchEdit)
         addProductButton = view.findViewById(R.id.AddProductButton)
         productsRecycler = view.findViewById(R.id.ProductsRecycler)
         previousButton = view.findViewById(R.id.PreviousButton)
@@ -61,7 +63,7 @@ class ProductsScreen  : Fragment(){
         addButton = view.findViewById(R.id.AddButton)
 
         productsRecycler.layoutManager = LinearLayoutManager(context)
-        productsRecycler.adapter = ProductsListAdapter(mainActivityModel.products, ::showProductInfo)
+        productsRecycler.adapter = adapter
 
         addProductButton.setOnClickListener {
             (activity as? MainActivityInterface)?.productsToCreateProductButton()
@@ -71,25 +73,32 @@ class ProductsScreen  : Fragment(){
             var amount = amountSelector.text.toString()
             Toast.makeText(requireContext(),"added $amount of product", Toast.LENGTH_SHORT).show()
         }
+
+        searchEdit.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchRecyclerView(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         return view
+    }
+
+    fun searchRecyclerView(searchValue: String) {
+        filteredItems = mainActivityModel.products.toMutableList()
+        if (searchValue.isNotBlank()){
+            filteredItems = filteredItems.filter { item ->
+                item.name.contains(searchValue, ignoreCase = true)
+            }.toMutableList()
+        }
+        adapter.setFilteredItems(filteredItems)
     }
 
     fun showProductInfo(product: Product){
         selectedProduct = product
         detailsView.text = product.printProductInfo()
     }
-
-    fun findProducts(name: String): MutableList<Product>
-    {
-        if(name.isBlank())
-            return mainActivityModel.products
-        val foundProduct: MutableList<Product> = arrayListOf<Product>()
-        for(product in mainActivityModel.products)
-        {
-            if(product.name.startsWith(name, true))
-                foundProduct.add(product)
-        }
-        return foundProduct
-    }
-
 }
