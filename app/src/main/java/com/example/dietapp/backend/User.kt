@@ -2,11 +2,11 @@ package com.example.dietapp.backend
 import java.io.Serializable
 import java.time.LocalDate
 
-class User() : Serializable {
-
-    var productList: MutableList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>()
-    var foodList: MutableList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>()
+class User(
+    var productList: MutableList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>(),
+    var foodList: MutableList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>(),
     var activityList: MutableList<Triple<Int, Activity, LocalDate>> = arrayListOf<Triple<Int, Activity, LocalDate>>()
+) : Serializable {
 
     public fun AddActivity(_exerciseTime: Int, _activity: Activity)
     {

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.R
 import com.example.dietapp.backend.User
 import com.google.gson.Gson
+import java.time.LocalDate
 
 class MainScreen : Fragment() {
 
@@ -22,6 +23,7 @@ class MainScreen : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var mainActivityModel: MainActivityModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
     {
@@ -33,7 +35,7 @@ class MainScreen : Fragment() {
         addActivity = view.findViewById(R.id.addActivity)
         summary = view.findViewById(R.id.summary)
 
-
+        mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
         addDish.setOnClickListener {
             (activity as? MainActivityInterface)?.mainToAddDishButton()
@@ -43,7 +45,8 @@ class MainScreen : Fragment() {
             (activity as? MainActivityInterface)?.mainToActivityButton()
         }
 
-        CacheTest()
+        summary.text = mainActivityModel.user.getUserInfo()
+        //CacheTest()
 
     return view
     }

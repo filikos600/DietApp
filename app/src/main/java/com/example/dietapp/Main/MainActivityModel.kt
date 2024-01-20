@@ -17,7 +17,7 @@ class MainActivityModel : ViewModel() {
 
     // w sumie na inicie możnaby zczytywać te listy z cache i zrobić jakąś funkcję przy zamykaniu żeby zapisywał zmiany ale to potem
     init {
-        createTestSamples()
+        //createTestSamples()
     }
 
 

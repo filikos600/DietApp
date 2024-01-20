@@ -23,14 +23,29 @@ import com.example.dietapp.StatsScreen
 import com.example.dietapp.backend.User
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonWriter
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     MainActivityInterface {
 
     private lateinit var drawerLayout: DrawerLayout
 
-    private val gson = Gson()
+    private val gson = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter().nullSafe()).create()
+
+    internal class LocalDateTypeAdapter : TypeAdapter<LocalDate>() {
+
+        override fun write(out: JsonWriter, value: LocalDate) {
+            out.value(DateTimeFormatter.ISO_LOCAL_DATE.format(value))
+        }
+        override fun read(input: JsonReader): LocalDate = LocalDate.parse(input.nextString())
+    }
+
     private lateinit var mainActivityModel: MainActivityModel
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -68,8 +83,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private inline fun <reified T> loadObject(key: String, clazz: Class<T>): T? {
         val json = sharedPreferences.getString(key, null)
         return if (json != null) {
+            println("LOADING OBJECT")
+            println(json)
             gson.fromJson(json, clazz)
         } else {
+            println("OBJECT NOT FOUND")
             null
         }
     }
