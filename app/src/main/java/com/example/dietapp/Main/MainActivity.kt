@@ -1,5 +1,6 @@
 package com.example.dietapp.Main
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
@@ -37,9 +38,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //LoadCache()
-
         mainActivityModel = ViewModelProvider(this).get(MainActivityModel::class.java)
+        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+
+        LoadCache()
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
@@ -174,7 +176,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStop() {
         super.onStop()
 
-        //SaveCache()
+        SaveCache()
 
         println("ZAMYKAM")
     }
