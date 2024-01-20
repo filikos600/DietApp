@@ -1,7 +1,8 @@
 package com.example.dietapp.backend
+import java.io.Serializable
 import java.time.LocalDate
 
-class User() {
+class User() : Serializable {
 
     var productList: MutableList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>()
     var foodList: MutableList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>()

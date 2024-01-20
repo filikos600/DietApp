@@ -1,5 +1,7 @@
 package com.example.dietapp.backend
 
+import java.io.Serializable
+
 data class Product (
     var name: String,
     var calories: Float,
@@ -9,7 +11,7 @@ data class Product (
     var protein: Float = 0f,
     var salt: Float = 0f,
     var portion: Float = 0f
-)
+): Serializable
 {    fun printProductInfo(): String{
         var text = ""
         text += "$name\n"
