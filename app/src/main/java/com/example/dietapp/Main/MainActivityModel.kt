@@ -8,10 +8,10 @@ import com.example.dietapp.backend.User
 
 
 class MainActivityModel : ViewModel() {
-    val products: MutableList<Product> = arrayListOf<Product>()
-    val foods: MutableList<Food> = arrayListOf<Food>()
-    val activities: MutableList<Activity> = arrayListOf<Activity>()
-    val user: User = User()
+    var products: MutableList<Product> = arrayListOf<Product>()
+    var foods: MutableList<Food> = arrayListOf<Food>()
+    var activities: MutableList<Activity> = arrayListOf<Activity>()
+    var user: User = User()
 
     val productsUsedInDish: MutableList<Pair<Product,Float>> = arrayListOf<Pair<Product,Float>>()
 
@@ -19,6 +19,7 @@ class MainActivityModel : ViewModel() {
     init {
         createTestSamples()
     }
+
 
     fun createTestSamples() {
         products.add(Product("egg", 20f))

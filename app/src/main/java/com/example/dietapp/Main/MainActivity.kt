@@ -1,5 +1,6 @@
 package com.example.dietapp.Main
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -7,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Activity.ActivityScreen
 import com.example.dietapp.Activity.CreateActivityScreen
 import com.example.dietapp.DishesScreen
@@ -17,16 +19,27 @@ import com.example.dietapp.Products.ProductsScreen
 import com.example.dietapp.R
 import com.example.dietapp.SettingsScreen
 import com.example.dietapp.StatsScreen
+import com.example.dietapp.backend.User
 import com.google.android.material.navigation.NavigationView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     MainActivityInterface {
 
     private lateinit var drawerLayout: DrawerLayout
 
+    private val gson = Gson()
+    private lateinit var mainActivityModel: MainActivityModel
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //LoadCache()
+
+        mainActivityModel = ViewModelProvider(this).get(MainActivityModel::class.java)
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
@@ -48,6 +61,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.nav_home)
         }
 
+    }
+
+    private inline fun <reified T> loadObject(key: String, clazz: Class<T>): T? {
+        val json = sharedPreferences.getString(key, null)
+        return if (json != null) {
+            gson.fromJson(json, clazz)
+        } else {
+            null
+        }
+    }
+
+    private inline fun <reified T> loadList(key: String): MutableList<T> {
+        val json = sharedPreferences.getString(key, null)
+        return if (json != null) {
+            val typeToken = TypeToken.getParameterized(MutableList::class.java, T::class.java).type
+            gson.fromJson(json, typeToken)
+        } else {
+            mutableListOf()
+        }
+    }
+
+    private fun saveObject(key: String, value: Any) {
+        val editor = sharedPreferences.edit()
+        val json = gson.toJson(value)
+        editor.putString(key, json)
+        editor.apply()
+    }
+
+    private fun saveList(key: String, list: List<Any>) {
+        val editor = sharedPreferences.edit()
+        val json = gson.toJson(list)
+        editor.putString(key, json)
+        editor.apply()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -109,6 +155,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MainScreen()).commit()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_home)
+    }
+
+    private fun SaveCache(){
+        saveList("products", mainActivityModel.products)
+        saveList("foods", mainActivityModel.foods)
+        saveList("activities", mainActivityModel.activities)
+        saveObject("user", mainActivityModel.user)
+    }
+
+    private fun LoadCache(){
+        mainActivityModel.products = loadList("products")
+        mainActivityModel.foods = loadList("foods")
+        mainActivityModel.activities = loadList("activities")
+        mainActivityModel.user = loadObject("user", User::class.java) ?: User()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        //SaveCache()
+
+        println("ZAMYKAM")
     }
 
 //    override fun onBackPressed() {
