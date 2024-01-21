@@ -12,6 +12,7 @@ class MainActivityModel : ViewModel() {
     var foods: MutableList<Food> = arrayListOf<Food>()
     var activities: MutableList<Activity> = arrayListOf<Activity>()
     var user: User = User()
+    var kcalDailyGoal = 2000
 
     val productsUsedInDish: MutableList<Pair<Product,Float>> = arrayListOf<Pair<Product,Float>>()
 

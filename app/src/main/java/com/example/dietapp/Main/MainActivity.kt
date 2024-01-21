@@ -2,8 +2,10 @@ package com.example.dietapp.Main
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +24,6 @@ import com.example.dietapp.SettingsScreen
 import com.example.dietapp.StatsScreen
 import com.example.dietapp.backend.User
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
 import com.google.gson.reflect.TypeToken
@@ -83,11 +84,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private inline fun <reified T> loadObject(key: String, clazz: Class<T>): T? {
         val json = sharedPreferences.getString(key, null)
         return if (json != null) {
-            println("LOADING OBJECT")
-            println(json)
             gson.fromJson(json, clazz)
         } else {
-            println("OBJECT NOT FOUND")
             null
         }
     }
@@ -100,6 +98,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             mutableListOf()
         }
+    }
+
+    private fun loadInt(key: String): Int {
+        return sharedPreferences.getInt(key, 2000)
+    }
+
+    private fun saveInt(key: String, value: Int) {
+        val editor = sharedPreferences.edit()
+        editor.putInt(key, value)
+        editor.apply()
     }
 
     private fun saveObject(key: String, value: Any) {
@@ -182,6 +190,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         saveList("foods", mainActivityModel.foods)
         saveList("activities", mainActivityModel.activities)
         saveObject("user", mainActivityModel.user)
+        saveInt("goal", mainActivityModel.kcalDailyGoal)
     }
 
     private fun LoadCache(){
@@ -189,6 +198,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mainActivityModel.foods = loadList("foods")
         mainActivityModel.activities = loadList("activities")
         mainActivityModel.user = loadObject("user", User::class.java) ?: User()
+        mainActivityModel.kcalDailyGoal = loadInt("goal")
     }
 
     override fun onStop() {

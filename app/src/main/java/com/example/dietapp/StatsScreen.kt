@@ -1,7 +1,12 @@
 package com.example.dietapp
 
 import android.app.DatePickerDialog
+import android.content.ContextWrapper
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +18,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityModel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Calendar
@@ -97,7 +103,7 @@ class StatsScreen : Fragment(){
                 5 -> report = mainActivityModel.user.getUserInfo(_Range = 180)
                 6 -> report = mainActivityModel.user.getUserInfo(_Range = 365)
             }
-            //TODO save report to file
+            saveToFile(report)
         }
 
         dateView.setOnClickListener(View.OnClickListener {
@@ -130,6 +136,11 @@ class StatsScreen : Fragment(){
         val month = calendar.get(Calendar.MONTH) + 1
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         return LocalDate.of(year,month,day)
+    }
+
+    private fun saveToFile(_text: String)
+    {
+        //TODO save to file
     }
 
 }

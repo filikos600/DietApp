@@ -45,10 +45,15 @@ class MainScreen : Fragment() {
             (activity as? MainActivityInterface)?.mainToActivityButton()
         }
 
-        summary.text = mainActivityModel.user.getUserInfo()
+        summary.text = "Met " + formatFloat(mainActivityModel.user.getKcalBalance()*100/mainActivityModel.kcalDailyGoal, 2) + "% of today kcal goal\n\n" + mainActivityModel.user.getUserInfo()
         //CacheTest()
 
     return view
+    }
+
+    private fun formatFloat(input: Float, scale: Int): String
+    {
+        return "%.${scale}f".format(input)
     }
 
     private fun CacheTest(){
@@ -62,11 +67,6 @@ class MainScreen : Fragment() {
             putInt("app_open_count", count)
             apply()
         }
-    }
-
-    fun getUserData()
-    {
-        //TODO read data about user from some file
     }
 
 }
