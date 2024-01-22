@@ -38,8 +38,8 @@ class SettingsScreen : Fragment(){
         val slider: Slider = view.findViewById(R.id.slider)
         val sliderValue: TextView = view.findViewById(R.id.sliderValue)
 
+        sliderValue.text = mainActivityModel.kcalDailyGoal.toString()
         slider.value = mainActivityModel.kcalDailyGoal.toFloat()
-        sliderValue.text = slider.value.toInt().toString()
 
         setting_1.setOnCheckedChangeListener { _, isChecked ->
             Toast.makeText(requireContext(), "switched $isChecked", Toast.LENGTH_SHORT).show()

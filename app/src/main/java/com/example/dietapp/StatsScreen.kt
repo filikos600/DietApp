@@ -1,8 +1,10 @@
 package com.example.dietapp
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.ContextWrapper
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -15,10 +17,12 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityModel
 import java.io.File
+import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Calendar
@@ -37,6 +41,16 @@ class StatsScreen : Fragment(){
     private val spinnerItems = arrayOf("Day", "Week", "Month", "3 Months", "6 Months", "Year")
     private var currentItemIndex = 0
     private lateinit var mainActivityModel: MainActivityModel
+    private var report = ""
+
+    private val createFileLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    writeTextToFile(uri, report)
+                }
+            }
+        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -93,7 +107,7 @@ class StatsScreen : Fragment(){
         }
 
         generateButton.setOnClickListener {
-            var report = ""
+            report = ""
             when(currentItemIndex) {
                 0 -> report = mainActivityModel.user.getUserInfo()
                 1 -> report = mainActivityModel.user.getUserInfo(_Range = 7)
@@ -103,7 +117,7 @@ class StatsScreen : Fragment(){
                 5 -> report = mainActivityModel.user.getUserInfo(_Range = 180)
                 6 -> report = mainActivityModel.user.getUserInfo(_Range = 365)
             }
-            saveToFile(report)
+            requestPermission()
         }
 
         dateView.setOnClickListener(View.OnClickListener {
@@ -137,10 +151,24 @@ class StatsScreen : Fragment(){
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         return LocalDate.of(year,month,day)
     }
+    private fun requestPermission() {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TITLE, "example.txt")
+        }
+        createFileLauncher.launch(intent)
+    }
+    private fun writeTextToFile(uri: Uri, text: String) {
+        try {
+            getActivity()?.getApplicationContext()?.getContentResolver()?.openOutputStream(uri)?.let { outputStream ->
+                OutputStreamWriter(outputStream).use { writer ->
+                    writer.write(text)
+                }
+            }
+        } catch (_: Exception) {
 
-    private fun saveToFile(_text: String)
-    {
-        //TODO save to file
+        }
     }
 
 }

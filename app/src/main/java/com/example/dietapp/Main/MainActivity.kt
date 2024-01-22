@@ -90,13 +90,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private inline fun <reified T> loadList(key: String): MutableList<T> {
+    private inline fun <reified T> loadList(key: String): MutableList<T>? {
         val json = sharedPreferences.getString(key, null)
         return if (json != null) {
             val typeToken = TypeToken.getParameterized(MutableList::class.java, T::class.java).type
             gson.fromJson(json, typeToken)
         } else {
-            mutableListOf()
+            //mutableListOf()
+            null
         }
     }
 
@@ -194,9 +195,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun LoadCache(){
-        mainActivityModel.products = loadList("products")
-        mainActivityModel.foods = loadList("foods")
-        mainActivityModel.activities = loadList("activities")
+        mainActivityModel.products = loadList("products") ?: mainActivityModel.initializeProductList()
+        mainActivityModel.foods = loadList("foods") ?: mainActivityModel.initializeFoodsList()
+        mainActivityModel.activities = loadList("activities") ?: mainActivityModel.initializeActivitiesList()
         mainActivityModel.user = loadObject("user", User::class.java) ?: User()
         mainActivityModel.kcalDailyGoal = loadInt("goal")
     }
