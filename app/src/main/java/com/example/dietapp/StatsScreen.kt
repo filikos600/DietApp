@@ -17,9 +17,11 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import java.io.File
 import java.io.OutputStreamWriter
@@ -67,6 +69,12 @@ class StatsScreen : Fragment(){
         infoView = view.findViewById(R.id.infoView)
         dateSpinner = view.findViewById(R.id.spinner)
         generateButton = view.findViewById(R.id.generateButton)
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as? MainActivityInterface)?.backToMainButton()
+            }
+        })
 
         val currentDate = calendar.timeInMillis
         // Update date

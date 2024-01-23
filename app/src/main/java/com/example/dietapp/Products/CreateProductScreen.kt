@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityInterface
@@ -81,6 +82,12 @@ class CreateProductScreen  : Fragment(){
 
             }
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as? MainActivityInterface)?.createProductToProductsButton()
+            }
+        })
 
         backButton.setOnClickListener {
             (activity as? MainActivityInterface)?.createProductToProductsButton()

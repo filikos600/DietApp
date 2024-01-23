@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,6 +68,12 @@ class CreateFoodScreen: Fragment() {
         usedProductsAdapter = UsedProductsListAdapter(chosenProductsWithPortions)
         rightRecyclerView.layoutManager = LinearLayoutManager(context)
         rightRecyclerView.adapter = usedProductsAdapter
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as? MainActivityInterface)?.createFoodtoFoods()
+            }
+        })
 
         saveButton.setOnClickListener {
 

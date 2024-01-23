@@ -11,6 +11,7 @@ import android.widget.RadioGroup
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityInterface
@@ -58,6 +59,12 @@ class SettingsScreen : Fragment(){
             val radioButton = view.findViewById<RadioButton>(checkedId)
             Toast.makeText(requireContext(),"radio " + radioButton.text.toString(), Toast.LENGTH_SHORT).show()
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as? MainActivityInterface)?.backToMainButton()
+            }
+        })
 
         slider.addOnChangeListener{ _, value, _ ->
             var goal = value.toInt()

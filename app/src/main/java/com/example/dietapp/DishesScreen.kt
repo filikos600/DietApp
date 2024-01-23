@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityInterface
@@ -34,6 +35,12 @@ class DishesScreen : Fragment() {
         daySummary = view.findViewById(R.id.daySummary)
 
         daySummary.text = mainActivityModel.user.getUserInfo()
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as? MainActivityInterface)?.backToMainButton()
+            }
+        })
 
         addProduct.setOnClickListener {
             (activity as? MainActivityInterface)?.dishesToProductButton()

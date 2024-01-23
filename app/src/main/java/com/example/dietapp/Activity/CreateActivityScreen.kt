@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityInterface
@@ -38,6 +39,12 @@ class CreateActivityScreen : Fragment() {
         name = view.findViewById(R.id.activityName)
         desc = view.findViewById(R.id.activityDesc)
         kcalReduction = view.findViewById(R.id.kcalReduction)
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as? MainActivityInterface)?.createActivityToActivityButton()
+            }
+        })
 
         addActivity.setOnClickListener {
             if(name.text.isBlank() || desc.text.isBlank() || kcalReduction.text.isBlank() )
