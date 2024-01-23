@@ -17,8 +17,8 @@ class MainActivityModel : ViewModel() {
     val productsUsedInDish: MutableList<Pair<Product,Float>> = mutableListOf<Pair<Product,Float>>()
 
     var editedProductIndex = -1
-
     var editedFoodIndex = -1
+    var editedActivityIndex = -1
 
 
     // w sumie na inicie możnaby zczytywać te listy z cache i zrobić jakąś funkcję przy zamykaniu żeby zapisywał zmiany ale to potem

@@ -5,10 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dietapp.R
-import com.example.dietapp.backend.Food
 import com.example.dietapp.backend.Product
 
 class ProductsListAdapter(private val items: MutableList<Product>, private val showProductInfo: (input: Product) -> Unit,  private val editProduct:(input: Int) ->Unit):

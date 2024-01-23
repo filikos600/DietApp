@@ -43,7 +43,7 @@ class ActivityScreen : Fragment() {
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
         filteredItems = mainActivityModel.activities.toMutableList()
-        adapter = ActivityListAdapter(filteredItems, ::showActivityInfo)
+        adapter = ActivityListAdapter(filteredItems, ::showActivityInfo, ::editActivity)
 
         searchEdit = view.findViewById(R.id.SearchEdit)
         addActivityButton = view.findViewById(R.id.AddActivityButton)
@@ -99,5 +99,15 @@ class ActivityScreen : Fragment() {
     fun showActivityInfo(activity: Activity){
         selectedActivity = activity
         detailsView.text = activity.printActivityInfo()
+    }
+
+    fun editActivity(activityIndex: Int){
+        mainActivityModel.editedActivityIndex = activityIndex
+        (activity as? MainActivityInterface)?.activityToCreateActivityButton()
+    }
+
+    override fun onStop() {
+        mainActivityModel.activities = adapter.getItems()
+        super.onStop()
     }
 }

@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dietapp.R
 import com.example.dietapp.backend.Activity
 
-class ActivityListAdapter(private val items: MutableList<Activity>, private val showActivityInfo: (input: Activity) -> Unit):
+class ActivityListAdapter(private val items: MutableList<Activity>, private val showActivityInfo: (input: Activity) -> Unit,  private val editActivity:(input: Int) ->Unit):
     RecyclerView.Adapter<ActivityListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,8 +34,7 @@ class ActivityListAdapter(private val items: MutableList<Activity>, private val 
         }
 
         holder.buttonEdit.setOnClickListener {
-            //TODO editing thing
-            Toast.makeText(it.context,"editing soon TM", Toast.LENGTH_SHORT).show()
+            editActivity(position)
         }
 
         holder.buttonRemove.setOnClickListener {
@@ -53,5 +51,9 @@ class ActivityListAdapter(private val items: MutableList<Activity>, private val 
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    public fun getItems(): MutableList<Activity>{
+        return items
     }
 }

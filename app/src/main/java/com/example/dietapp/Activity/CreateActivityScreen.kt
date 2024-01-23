@@ -14,6 +14,7 @@ import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Activity
+import com.example.dietapp.backend.Product
 
 class CreateActivityScreen : Fragment() {
 
@@ -22,6 +23,8 @@ class CreateActivityScreen : Fragment() {
     private lateinit var name: EditText
     private lateinit var desc: EditText
     private lateinit var kcalReduction: EditText
+
+    private var editing = false
 
     private lateinit var mainActivityModel: MainActivityModel
 
@@ -40,6 +43,8 @@ class CreateActivityScreen : Fragment() {
         desc = view.findViewById(R.id.activityDesc)
         kcalReduction = view.findViewById(R.id.kcalReduction)
 
+        loadEditedActivityInfo()
+
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 (activity as? MainActivityInterface)?.createActivityToActivityButton()
@@ -47,13 +52,24 @@ class CreateActivityScreen : Fragment() {
         })
 
         addActivity.setOnClickListener {
-            if(name.text.isBlank() || desc.text.isBlank() || kcalReduction.text.isBlank() )
-                Toast.makeText(requireContext(),"Fill in all inputs", Toast.LENGTH_SHORT).show()
-            else
-            {
-                val newActivity = Activity(name.text.toString(),desc.text.toString(),kcalReduction.text.toString().toFloat() )
-                mainActivityModel.activities.add(newActivity)
-                (activity as? MainActivityInterface)?.createActivityToActivityButton()
+
+            val name = name.text.toString().trim()
+            val desc = desc.text.toString().trim()
+            val kcalBurnt = if (kcalReduction.text.toString().trim().isEmpty()) 0f else kcalReduction.text.toString().trim().toFloat()
+
+            if (name.isEmpty() || kcalBurnt <= 0f){
+                Toast.makeText(requireContext(),"Name and calories are required", Toast.LENGTH_SHORT).show()
+            } else {
+                if (editing){
+                    mainActivityModel.activities[mainActivityModel.editedActivityIndex] = Activity(name,desc, kcalBurnt)
+                    mainActivityModel.editedProductIndex = -1
+                    (activity as? MainActivityInterface)?.createActivityToActivityButton()
+                }
+                else{
+                    mainActivityModel.activities.add(Activity(name,desc, kcalBurnt))
+                    (activity as? MainActivityInterface)?.createProductToProductsButton()
+                }
+
             }
         }
 
@@ -61,5 +77,19 @@ class CreateActivityScreen : Fragment() {
             (activity as? MainActivityInterface)?.createActivityToActivityButton()
         }
         return view
+    }
+
+    fun loadEditedActivityInfo(){
+        val index = mainActivityModel.editedActivityIndex
+        if (index < 0){
+            editing = false
+        }
+        else{
+            val editActivity =  mainActivityModel.activities[index]
+            editing = true
+            name.setText(editActivity.name)
+            desc.setText(editActivity.desc.toString())
+            kcalReduction.setText(editActivity.kcalBurnt.toString())
+        }
     }
 }
