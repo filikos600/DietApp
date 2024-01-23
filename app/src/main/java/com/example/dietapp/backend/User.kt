@@ -3,9 +3,9 @@ import java.io.Serializable
 import java.time.LocalDate
 
 class User(
-    var productList: MutableList<Triple<Int, Product, LocalDate>> = arrayListOf<Triple<Int, Product, LocalDate>>(),
-    var foodList: MutableList<Triple<Int, Food, LocalDate>> = arrayListOf<Triple<Int, Food, LocalDate>>(),
-    var activityList: MutableList<Triple<Int, Activity, LocalDate>> = arrayListOf<Triple<Int, Activity, LocalDate>>()
+    var productList: MutableList<Triple<Int, Product, LocalDate>> = mutableListOf<Triple<Int, Product, LocalDate>>(),
+    var foodList: MutableList<Triple<Int, Food, LocalDate>> = mutableListOf<Triple<Int, Food, LocalDate>>(),
+    var activityList: MutableList<Triple<Int, Activity, LocalDate>> = mutableListOf<Triple<Int, Activity, LocalDate>>()
 ) : Serializable {
 
     public fun AddActivity(_exerciseTime: Int, _activity: Activity)

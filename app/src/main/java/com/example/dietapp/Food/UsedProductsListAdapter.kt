@@ -40,4 +40,8 @@ class UsedProductsListAdapter(private val items: MutableList<Pair<Product,Float>
     override fun getItemCount(): Int {
         return items.size
     }
+
+    public fun getItems(): MutableList<Pair<Product,Float>>{
+        return items
+    }
 }

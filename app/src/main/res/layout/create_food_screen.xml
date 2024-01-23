@@ -7,12 +7,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/FoodName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/MainLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="Food name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"/>
 
     <LinearLayout
         android:id="@+id/MainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FoodName">
 
         <LinearLayout
             android:id="@+id/LeftLayout"
@@ -79,28 +100,13 @@
                     android:layout_height="wrap_content"
                     android:text="very detailed information about everything that's important about currently selected product such as i don't really know what but I'm sure tehre's gonna be lots of them here for sure I promise trust me bro" />
 
-                <EditText
-                    android:id="@+id/LeftAmountSelector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="portions to add"
-                    android:imeOptions="actionDone"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1" />
-
-                <Button
-                    android:id="@+id/LeftAddButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add"/>
             </LinearLayout>
             <Button
                 android:id="@+id/BackButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Back"
-                android:layout_marginTop="23dp"/>
+                android:layout_marginTop="115dp"/>
         </LinearLayout>
 
         <LinearLayout

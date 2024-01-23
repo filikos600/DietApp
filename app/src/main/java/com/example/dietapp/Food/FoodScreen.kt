@@ -17,6 +17,7 @@ import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Food
+import com.example.dietapp.backend.Product
 
 
 class FoodScreen  : Fragment(){
@@ -53,7 +54,7 @@ class FoodScreen  : Fragment(){
         addButton = view.findViewById(R.id.AddButton)
 
         foodRecycler.layoutManager = LinearLayoutManager(context)
-        adapter = FoodListAdapter(filteredItems, ::showFoodInfo)
+        adapter = FoodListAdapter(filteredItems, ::showFoodInfo, ::editFood)
         foodRecycler.adapter = adapter
 
         addNewFoodButton.setOnClickListener {
@@ -82,6 +83,11 @@ class FoodScreen  : Fragment(){
         return view
     }
 
+    override fun onStop() {
+        mainActivityModel.foods = adapter.getItems()
+        super.onStop()
+    }
+
     fun searchRecyclerView(searchValue: String) {
         filteredItems = mainActivityModel.foods.toMutableList()
         if (searchValue.isNotBlank()){
@@ -95,6 +101,11 @@ class FoodScreen  : Fragment(){
     fun showFoodInfo(food: Food){
         selectedFood = food
         detailsView.text = food.printDishInfo()
+    }
+
+    fun editFood(foodindex: Int){
+        mainActivityModel.editedFoodIndex = foodindex
+        (activity as? MainActivityInterface)?.foodsToCreateFoodButton()
     }
 
 }

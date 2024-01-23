@@ -2,7 +2,7 @@ package com.example.dietapp.backend
 
 import java.io.Serializable
 
-data class Food(var name: String, var list_of_product: List<Pair<Product,Float>>): Serializable{
+data class Food(var name: String, var list_of_product: MutableList<Pair<Product,Float>>): Serializable{
     fun getDishCalories(): Float{
         var a = 0f
         for ((product, portion) in list_of_product){

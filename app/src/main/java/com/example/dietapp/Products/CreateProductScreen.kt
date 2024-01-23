@@ -28,6 +28,8 @@ class CreateProductScreen  : Fragment(){
     private lateinit var addButton: Button
     private lateinit var backButton: Button
 
+    private var editing = false
+
     private lateinit var mainActivityModel: MainActivityModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +53,7 @@ class CreateProductScreen  : Fragment(){
         addButton = view.findViewById(R.id.AddButton)
         backButton = view.findViewById(R.id.BackButton)
 
+        loadEditedProductInfo()
 
         addButton.setOnClickListener {
 
@@ -66,9 +69,16 @@ class CreateProductScreen  : Fragment(){
             if (name.isEmpty() || calories <= 0f){
                 Toast.makeText(requireContext(),"Name and calories are required", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(),"added $name product", Toast.LENGTH_SHORT).show()
-                val newProduct = Product(name,calories, fats, carbohydrates, sugar, proteins, salts, portion)
-                mainActivityModel.products.add(newProduct)
+                if (editing){
+                    mainActivityModel.products[mainActivityModel.editedProductIndex] = Product(name,calories, fats, carbohydrates, sugar, proteins, salts, portion)
+                    mainActivityModel.editedProductIndex = -1
+                    (activity as? MainActivityInterface)?.createProductToProductsButton()
+                }
+                else{
+                    mainActivityModel.products.add(Product(name,calories, fats, carbohydrates, sugar, proteins, salts, portion))
+                    (activity as? MainActivityInterface)?.createProductToProductsButton()
+                }
+
             }
         }
 
@@ -76,5 +86,24 @@ class CreateProductScreen  : Fragment(){
             (activity as? MainActivityInterface)?.createProductToProductsButton()
         }
         return view
+    }
+
+    fun loadEditedProductInfo(){
+        val index = mainActivityModel.editedProductIndex
+        if (index < 0){
+            editing = false
+        }
+        else{
+            val editProduct =  mainActivityModel.products[index]
+            editing = true
+            nameEdit.setText(editProduct.name)
+            caloriesEdit.setText(editProduct.calories.toString())
+            fatsEdit.setText(editProduct.fats.toString())
+            carbohydratesEdit.setText(editProduct.carbohydrates.toString())
+            sugarEdit.setText(editProduct.sugar.toString())
+            proteinEdit.setText(editProduct.protein.toString())
+            saltEdit.setText(editProduct.salt.toString())
+            portionEdit.setText(editProduct.portion.toString())
+        }
     }
 }

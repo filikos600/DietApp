@@ -8,6 +8,8 @@ interface MainActivityInterface {
     fun activityToCreateActivityButton()
     fun createActivityToActivityButton()
     fun createProductToProductsButton()
+
+    fun createFoodtoFoods()
     fun foodsToCreateFoodButton()
     fun productsToCreateProductButton()
     fun backToMainButton()

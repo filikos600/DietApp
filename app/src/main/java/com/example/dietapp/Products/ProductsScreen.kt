@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
+import com.example.dietapp.backend.Food
 import com.example.dietapp.backend.Product
 
 class ProductsScreen  : Fragment(){
@@ -40,7 +41,7 @@ class ProductsScreen  : Fragment(){
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
         filteredItems = mainActivityModel.products.toMutableList()
-        adapter = ProductsListAdapter(filteredItems, ::showProductInfo)
+        adapter = ProductsListAdapter(filteredItems, ::showProductInfo, ::editProduct)
 
         searchEdit = view.findViewById(R.id.SearchEdit)
         addProductButton = view.findViewById(R.id.AddProductButton)
@@ -77,6 +78,11 @@ class ProductsScreen  : Fragment(){
         return view
     }
 
+    override fun onStop() {
+        mainActivityModel.products = adapter.getItems()
+        super.onStop()
+    }
+
     fun searchRecyclerView(searchValue: String) {
         filteredItems = mainActivityModel.products.toMutableList()
         if (searchValue.isNotBlank()){
@@ -90,5 +96,10 @@ class ProductsScreen  : Fragment(){
     fun showProductInfo(product: Product){
         selectedProduct = product
         detailsView.text = product.printProductInfo()
+    }
+
+    fun editProduct(productIndex: Int){
+        mainActivityModel.editedProductIndex = productIndex
+        (activity as? MainActivityInterface)?.productsToCreateProductButton()
     }
 }

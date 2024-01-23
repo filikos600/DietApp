@@ -8,9 +8,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dietapp.R
+import com.example.dietapp.backend.Food
 import com.example.dietapp.backend.Product
 
-class ProductsListAdapter(private val items: MutableList<Product>, private val showProductInfo: (input: Product) -> Unit):
+class ProductsListAdapter(private val items: MutableList<Product>, private val showProductInfo: (input: Product) -> Unit,  private val editProduct:(input: Int) ->Unit):
     RecyclerView.Adapter<ProductsListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,8 +36,7 @@ class ProductsListAdapter(private val items: MutableList<Product>, private val s
         }
 
         holder.buttonEdit.setOnClickListener {
-            //TODO editing thing
-            Toast.makeText(it.context,"editing soon TM", Toast.LENGTH_SHORT).show()
+            editProduct(position)
         }
 
         holder.buttonRemove.setOnClickListener {
@@ -53,6 +53,10 @@ class ProductsListAdapter(private val items: MutableList<Product>, private val s
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    public fun getItems(): MutableList<Product>{
+        return items
     }
 }
 

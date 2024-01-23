@@ -174,6 +174,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun createProductToProductsButton(){
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
     }
+
+    override fun createFoodtoFoods(){
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FoodScreen()).commit()
+    }
     override fun productsToCreateProductButton() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateProductScreen()).commit()
     }
