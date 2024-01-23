@@ -13,4 +13,5 @@ interface MainActivityInterface {
     fun foodsToCreateFoodButton()
     fun productsToCreateProductButton()
     fun backToMainButton()
+    fun updateSummaryBar()
 }

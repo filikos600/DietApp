@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     MainActivityInterface {
 
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var summaryBar: TextView
 
     private val gson = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter().nullSafe()).create()
 
@@ -60,7 +62,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         LoadCache()
 
         drawerLayout = findViewById(R.id.drawer_layout)
+        summaryBar = findViewById(R.id.short_summary)
 
+        summaryBar.text = printShortSummary()
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -134,7 +138,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_stats -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, StatsScreen()).commit()
             R.id.nav_settings -> supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SettingsScreen()).commit()
         }
-
+        updateSummaryBar()
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
@@ -142,36 +146,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun mainToAddDishButton() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_dishes)
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, DishesScreen()).commit()
     }
 
     override fun mainToActivityButton() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_activities)
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ActivityScreen()).commit()
     }
 
     override fun dishesToFoodButton() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_products)
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FoodScreen()).commit()
     }
 
     override fun dishesToProductButton() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_products)
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
     }
 
     override fun activityToCreateActivityButton() {
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateActivityScreen()).commit()
     }
 
     override fun createActivityToActivityButton() {
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ActivityScreen()).commit()
     }
 
     override fun createProductToProductsButton(){
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ProductsScreen()).commit()
     }
 
@@ -179,15 +190,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FoodScreen()).commit()
     }
     override fun productsToCreateProductButton() {
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateProductScreen()).commit()
     }
     override fun foodsToCreateFoodButton() {
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, CreateFoodScreen()).commit()
     }
     override fun backToMainButton() {
+        updateSummaryBar()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MainScreen()).commit()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setCheckedItem(R.id.nav_home)
+    }
+
+    override fun updateSummaryBar() {
+        summaryBar.text = printShortSummary()
     }
 
     private fun SaveCache(){
@@ -214,6 +232,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         println("ZAMYKAM")
     }
 
+    private fun printShortSummary(): String {
+        val kcal = mainActivityModel.user.getKcalBalance()
+        val progress = (kcal / mainActivityModel.kcalDailyGoal) * 100
+        var text = ""
+        text += kcal.toString()
+        text += " kcal ( " + formatFloat(progress,2) + " % )"
+        return text
+    }
+    private fun formatFloat(input: Float, scale: Int): String
+    {
+        return "%.${scale}f".format(input)
+    }
 //    override fun onBackPressed() {
 //        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
 //            drawerLayout.closeDrawer(GravityCompat.START)

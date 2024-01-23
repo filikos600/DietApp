@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import com.google.android.material.slider.RangeSlider
 import com.google.android.material.slider.Slider
@@ -61,6 +62,7 @@ class SettingsScreen : Fragment(){
         slider.addOnChangeListener{ _, value, _ ->
             var goal = value.toInt()
             mainActivityModel.kcalDailyGoal = goal
+            (activity as? MainActivityInterface)?.updateSummaryBar()
             sliderValue.text = goal.toString()
         }
 
