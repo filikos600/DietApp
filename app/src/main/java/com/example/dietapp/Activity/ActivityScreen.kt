@@ -14,24 +14,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dietapp.Food.ProductQuantityDialog
 import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
 import com.example.dietapp.backend.Activity
+import com.example.dietapp.backend.Product
 
 class ActivityScreen : Fragment() {
 
     private lateinit var searchEdit: EditText
     private lateinit var addActivityButton: Button
-    private lateinit var detailsView: TextView
-    private lateinit var amountSelector: EditText
-    private lateinit var addButton: Button
     private lateinit var activityRecycler: RecyclerView
 
     private lateinit var mainActivityModel: MainActivityModel
 
     private lateinit var filteredItems: MutableList<Activity>
-    private lateinit var selectedActivity: Activity
     private lateinit var adapter: ActivityListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -43,14 +41,11 @@ class ActivityScreen : Fragment() {
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
         filteredItems = mainActivityModel.activities.toMutableList()
-        adapter = ActivityListAdapter(filteredItems, ::showActivityInfo, ::editActivity)
+        adapter = ActivityListAdapter(filteredItems, ::useActivity, ::editActivity)
 
         searchEdit = view.findViewById(R.id.SearchEdit)
         addActivityButton = view.findViewById(R.id.AddActivityButton)
         activityRecycler = view.findViewById(R.id.ActivityRecycler)
-        detailsView = view.findViewById(R.id.DetailsView)
-        amountSelector = view.findViewById(R.id.AmountSelector)
-        addButton = view.findViewById(R.id.AddButton)
 
         activityRecycler.layoutManager = LinearLayoutManager(context)
         activityRecycler.adapter = adapter
@@ -60,14 +55,6 @@ class ActivityScreen : Fragment() {
                 (activity as? MainActivityInterface)?.backToMainButton()
             }
         })
-
-        addButton.setOnClickListener {
-            if(::selectedActivity.isInitialized && amountSelector.text.isNotBlank()) {
-                var amount = amountSelector.text.toString().toInt()
-                mainActivityModel.user.AddActivity(amount, selectedActivity)
-                (activity as? MainActivityInterface)?.backToMainButton()
-            }
-        }
 
         addActivityButton.setOnClickListener {
             (activity as? MainActivityInterface)?.activityToCreateActivityButton()
@@ -96,14 +83,20 @@ class ActivityScreen : Fragment() {
         adapter.setFilteredItems(filteredItems)
     }
 
-    fun showActivityInfo(activity: Activity){
-        selectedActivity = activity
-        detailsView.text = activity.printActivityInfo()
-    }
-
     fun editActivity(activityIndex: Int){
         mainActivityModel.editedActivityIndex = activityIndex
         (activity as? MainActivityInterface)?.activityToCreateActivityButton()
+    }
+
+    fun onNumberChosen(number: Float, activity: Activity) {
+        var amount = number.toInt()
+        mainActivityModel.user.AddActivity(amount,activity)
+        println("Chosen number: $amount")
+    }
+
+    fun useActivity(_activity: Activity){
+        val dialog = ActivityDialog(this, _activity)
+        dialog.show(parentFragmentManager, "ActivityDialog")
     }
 
     override fun onStop() {
