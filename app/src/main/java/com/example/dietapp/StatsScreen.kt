@@ -110,6 +110,8 @@ class StatsScreen : Fragment(){
 
         nextButton.setOnClickListener {
             calendar.add(Calendar.DAY_OF_MONTH, 1)
+            if (calendar.timeInMillis > currentDate)
+                calendar.add(Calendar.DAY_OF_MONTH, -1)
             updateDateLabel()
             infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
         }
