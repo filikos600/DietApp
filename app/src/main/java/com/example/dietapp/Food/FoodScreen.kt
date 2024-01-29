@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,7 +28,6 @@ class FoodScreen  : Fragment(){
     private lateinit var foodRecycler: RecyclerView
     private lateinit var detailsView: TextView
     private lateinit var imageView: TextView
-    private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
     private lateinit var selectedFood: Food
@@ -51,7 +51,6 @@ class FoodScreen  : Fragment(){
         foodRecycler = view.findViewById(R.id.FoodRecycler)
         detailsView = view.findViewById(R.id.DetailsView)
         imageView = view.findViewById(R.id.ImageView)
-        amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)
 
         foodRecycler.layoutManager = LinearLayoutManager(context)
@@ -69,12 +68,12 @@ class FoodScreen  : Fragment(){
         }
 
         addButton.setOnClickListener {
-            if(::selectedFood.isInitialized && amountSelector.text.isNotBlank()) {
-                var amount = amountSelector.text.toString().toInt()
-                mainActivityModel.user.AddFood(amount, selectedFood)
-                (activity as? MainActivityInterface)?.backToMainButton()
-            }
-
+            if(::selectedFood.isInitialized) {
+                val dialog = FoodQuantityDialog(this, selectedFood)
+                dialog.show(parentFragmentManager, "ProductQuantityDialog")
+            }else(
+                Toast.makeText(requireContext(),"Please select from list above", Toast.LENGTH_SHORT).show()
+            )
         }
 
         searchEdit.addTextChangedListener(object: TextWatcher {
@@ -88,6 +87,11 @@ class FoodScreen  : Fragment(){
         })
 
         return view
+    }
+
+    public fun FoodAdded(food: Food, amount: Float){
+        mainActivityModel.user.AddFood(amount, selectedFood)
+        (activity as? MainActivityInterface)?.backToMainButton()
     }
 
     override fun onStop() {

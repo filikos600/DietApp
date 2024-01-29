@@ -85,21 +85,11 @@
             android:layout_height="wrap_content"
             android:text="very detailed information about everything that's important about currently selected product such as i don't really know what but I'm sure tehre's gonna be lots of them here for sure I promise trust me bro" />
 
-        <EditText
-            android:id="@+id/AmountSelector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="portions to add"
-            android:maxLines="1"
-            android:imeOptions="actionDone"
-            android:inputType="numberDecimal" />
-
         <Button
             android:id="@+id/AddButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add" />
+            android:text="Add consumed Products" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

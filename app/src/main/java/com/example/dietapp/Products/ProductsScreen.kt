@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dietapp.Food.FoodQuantityDialog
 import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
 import com.example.dietapp.R
@@ -26,7 +28,6 @@ class ProductsScreen  : Fragment(){
     private lateinit var addProductButton: Button
     private lateinit var productsRecycler: RecyclerView
     private lateinit var detailsView: TextView
-    private lateinit var amountSelector: EditText
     private lateinit var addButton: Button
 
     private lateinit var selectedProduct: Product
@@ -49,7 +50,6 @@ class ProductsScreen  : Fragment(){
         addProductButton = view.findViewById(R.id.AddProductButton)
         productsRecycler = view.findViewById(R.id.ProductsRecycler)
         detailsView = view.findViewById(R.id.DetailsView)
-        amountSelector = view.findViewById(R.id.AmountSelector)
         addButton = view.findViewById(R.id.AddButton)
 
         productsRecycler.layoutManager = LinearLayoutManager(context)
@@ -60,10 +60,12 @@ class ProductsScreen  : Fragment(){
         }
 
         addButton.setOnClickListener {
-            if(::selectedProduct.isInitialized && amountSelector.text.isNotBlank()) {
-                var amount = amountSelector.text.toString().toInt()
-                mainActivityModel.user.AddProduct(amount, selectedProduct)
-                (activity as? MainActivityInterface)?.backToMainButton()
+            if(::selectedProduct.isInitialized) {
+                val dialog = ProductQuantity(this, selectedProduct)
+                dialog.show(parentFragmentManager, "ProductQuantityDialog")
+            }
+            else{
+                Toast.makeText(requireContext(),"Please select from list above", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -84,6 +86,11 @@ class ProductsScreen  : Fragment(){
         })
 
         return view
+    }
+
+    fun onNumberChosen(product: Product, amount: Float){
+        mainActivityModel.user.AddProduct(amount, selectedProduct)
+        (activity as? MainActivityInterface)?.backToMainButton()
     }
 
     override fun onStop() {

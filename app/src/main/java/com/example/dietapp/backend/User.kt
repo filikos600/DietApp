@@ -3,8 +3,8 @@ import java.io.Serializable
 import java.time.LocalDate
 
 class User(
-    var productList: MutableList<Triple<Int, Product, LocalDate>> = mutableListOf<Triple<Int, Product, LocalDate>>(),
-    var foodList: MutableList<Triple<Int, Food, LocalDate>> = mutableListOf<Triple<Int, Food, LocalDate>>(),
+    var productList: MutableList<Triple<Float, Product, LocalDate>> = mutableListOf<Triple<Float, Product, LocalDate>>(),
+    var foodList: MutableList<Triple<Float, Food, LocalDate>> = mutableListOf<Triple<Float, Food, LocalDate>>(),
     var activityList: MutableList<Triple<Int, Activity, LocalDate>> = mutableListOf<Triple<Int, Activity, LocalDate>>()
 ) : Serializable {
 
@@ -14,13 +14,13 @@ class User(
         activityList.add(triple)
     }
 
-    public fun AddProduct(_portions: Int, _product: Product)
+    public fun AddProduct(_portions: Float, _product: Product)
     {
         val triple = Triple(_portions, _product, LocalDate.now())
         productList.add(triple)
     }
 
-    public fun AddFood(_portions: Int, _food: Food)
+    public fun AddFood(_portions: Float, _food: Food)
     {
         val triple = Triple(_portions, _food, LocalDate.now())
         foodList.add(triple)

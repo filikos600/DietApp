@@ -90,20 +90,11 @@
             android:layout_height="wrap_content"
             android:text="insert obrazek here maybe idk?" />
 
-        <EditText
-            android:id="@+id/AmountSelector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:imeOptions="actionDone"
-            android:inputType="numberDecimal"
-            android:maxLines="1" />
-
         <Button
             android:id="@+id/AddButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add" />
+            android:text="Add Consumed Food" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
