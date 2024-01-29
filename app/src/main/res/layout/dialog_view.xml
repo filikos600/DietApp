@@ -5,19 +5,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/activityDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="activity details"/>
-
-
     <EditText
         android:id="@+id/editTextNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:hint="Enter a number of portions"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

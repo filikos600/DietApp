@@ -44,6 +44,7 @@
         android:layout_width="330dp"
         android:layout_height="330dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a sodales lorem. Nulla porttitor nisl in nisl varius imperdiet. Maecenas a auctor justo. Mauris id consectetur dolor, vitae hendrerit orci. Nam aliquam mi sed sapien consectetur, nec scelerisque mauris tincidunt. Morbi dapibus, neque sit amet tincidunt egestas, orci sapien pretium arcu, in auctor dolor nisl vel magna. Nam laoreet, nisi vel sollicitudin lacinia, leo massa feugiat erat, id bibendum sapien libero vel odio. Maecenas non ante sed purus ullamcorper fringilla sit amet eget nulla. Integer tempus rutrum ipsum in aliquam. Donec semper ac nisl ut gravida. Quisque in ipsum id leo venenatis porttitor. "
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

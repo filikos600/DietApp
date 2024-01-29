@@ -2,7 +2,6 @@ package com.example.dietapp.Food
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -16,7 +15,7 @@ class ProductQuantityDialog(private val myParentFragment: CreateFoodScreen, priv
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater
-            val dialogView = inflater.inflate(R.layout.product_quantity_dialog, null)
+            val dialogView = inflater.inflate(R.layout.dialog_view, null)
 
             val editTextNumber = dialogView.findViewById<EditText>(R.id.editTextNumber)
             val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmit)

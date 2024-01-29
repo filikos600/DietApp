@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,10 +77,12 @@ class StatsScreen : Fragment(){
             }
         })
 
+        infoView.movementMethod = ScrollingMovementMethod()
+
         val currentDate = calendar.timeInMillis
         // Update date
         updateDateLabel()
-        infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
+        infoView.text = mainActivityModel.user.printAllUserDetails(calendarToLocalDate())
 
         // Set up ArrayAdapter for the Spinner
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerItems)
@@ -105,7 +108,7 @@ class StatsScreen : Fragment(){
         previousButton.setOnClickListener {
             calendar.add(Calendar.DAY_OF_MONTH, -1)
             updateDateLabel()
-            infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
+            infoView.text = mainActivityModel.user.printAllUserDetails(calendarToLocalDate())
         }
 
         nextButton.setOnClickListener {
@@ -113,7 +116,7 @@ class StatsScreen : Fragment(){
             if (calendar.timeInMillis > currentDate)
                 calendar.add(Calendar.DAY_OF_MONTH, -1)
             updateDateLabel()
-            infoView.text = mainActivityModel.user.getUserInfo(calendarToLocalDate())
+            infoView.text = mainActivityModel.user.printAllUserDetails(calendarToLocalDate())
         }
 
         generateButton.setOnClickListener {

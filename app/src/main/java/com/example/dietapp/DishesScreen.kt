@@ -1,6 +1,7 @@
 package com.example.dietapp
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,10 @@ class DishesScreen : Fragment() {
         addFood = view.findViewById(R.id.addFood)
         daySummary = view.findViewById(R.id.daySummary)
 
-        daySummary.text = mainActivityModel.user.getUserInfo()
+
+        val todayEaten = "PRODUCTS:\n" + mainActivityModel.user.printEatenProducts() + "FOODS:\n" + mainActivityModel.user.printEatenFoods()
+        daySummary.text = todayEaten
+        daySummary.movementMethod = ScrollingMovementMethod()
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

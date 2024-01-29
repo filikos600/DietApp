@@ -8,25 +8,25 @@ class User(
     var activityList: MutableList<Triple<Int, Activity, LocalDate>> = mutableListOf<Triple<Int, Activity, LocalDate>>()
 ) : Serializable {
 
-    public fun AddActivity(_exerciseTime: Int, _activity: Activity)
+    fun AddActivity(_exerciseTime: Int, _activity: Activity)
     {
         val triple = Triple(_exerciseTime, _activity, LocalDate.now())
         activityList.add(triple)
     }
 
-    public fun AddProduct(_portions: Float, _product: Product)
+    fun AddProduct(_portions: Float, _product: Product)
     {
         val triple = Triple(_portions, _product, LocalDate.now())
         productList.add(triple)
     }
 
-    public fun AddFood(_portions: Float, _food: Food)
+    fun AddFood(_portions: Float, _food: Food)
     {
         val triple = Triple(_portions, _food, LocalDate.now())
         foodList.add(triple)
     }
 
-    public fun getKcalBalance(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
+    fun getKcalBalance(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
     {
         val minimalDate = _refrenceDay.minusDays(_Range - 1)
         var kcal = 0f
@@ -46,7 +46,7 @@ class User(
         return kcal
     }
 
-    public fun getCarbohydatesIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
+    fun getCarbohydatesIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
     {
         val minimalDate = _refrenceDay.minusDays(_Range - 1)
         var carbohydrates = 0f
@@ -62,7 +62,7 @@ class User(
         return carbohydrates
     }
 
-    public fun getFatsIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
+    fun getFatsIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
     {
         val minimalDate = _refrenceDay.minusDays(_Range - 1)
         var fats = 0f
@@ -78,7 +78,7 @@ class User(
         return fats
     }
 
-    public fun getSugarIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
+    fun getSugarIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
     {
         val minimalDate = _refrenceDay.minusDays(_Range - 1)
         var sugar = 0f
@@ -94,7 +94,7 @@ class User(
         return sugar
     }
 
-    public fun getProteinIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
+    fun getProteinIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
     {
         val minimalDate = _refrenceDay.minusDays(_Range - 1)
         var protein = 0f
@@ -110,7 +110,7 @@ class User(
         return protein
     }
 
-    public fun getSaltIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
+    fun getSaltIntake(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): Float
     {
         val minimalDate = _refrenceDay.minusDays(_Range - 1)
         var salt = 0f
@@ -136,4 +136,45 @@ class User(
         text += "Salt: ${getSaltIntake(_refrenceDay, _Range)} g\n"
         return text
     }
+
+    fun printEatenProducts(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): String
+    {
+        val minimalDate = _refrenceDay.minusDays(_Range - 1)
+        var text = ""
+        for(product in productList)
+            if(minimalDate <= product.third && _refrenceDay >= product.third)
+                text += product.second.name + " " + product.first + " portions \n"
+        return text
+    }
+
+    fun printEatenFoods(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): String
+    {
+        val minimalDate = _refrenceDay.minusDays(_Range - 1)
+        var text = ""
+        for(food in foodList)
+            if(minimalDate <= food.third && _refrenceDay >= food.third)
+                text += food.second.name + " " + food.first + " portions \n"
+        return text
+    }
+
+    fun printDoneActivities(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): String
+    {
+        val minimalDate = _refrenceDay.minusDays(_Range - 1)
+        var text = ""
+        for(activity in activityList)
+            if(minimalDate <= activity.third && _refrenceDay >= activity.third)
+                text += activity.second.name + " " + activity.first + " cycles \n"
+        return text
+    }
+
+    fun printAllUserDetails(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): String
+    {
+        var text = ""
+        text += getUserInfo(_refrenceDay,_Range) + "\n"
+        text += "PRODUCTS:\n" + printEatenProducts(_refrenceDay,_Range) + "\n"
+        text += "FOODS:\n" + printEatenFoods(_refrenceDay,_Range) + "\n"
+        text += "ACTIVITIES:\n" + printDoneActivities(_refrenceDay,_Range)
+        return text
+    }
+
 }
