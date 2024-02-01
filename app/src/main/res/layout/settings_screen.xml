@@ -5,99 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Switch
-        android:id="@+id/switch_1"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:text="Switch setting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/checkbox_1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <CheckBox
-        android:id="@+id/checkbox_1"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:text="Checkbox Setting"
-        app:layout_constraintBottom_toTopOf="@+id/button_1"
-        app:layout_constraintTop_toBottomOf="@+id/switch_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_1"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:text="idk if there's a reason for button setting but here we are"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/radiogroup"
-        app:layout_constraintTop_toBottomOf="@+id/checkbox_1" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/radiogroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_1"
-        app:layout_constraintVertical_bias="0.5" >
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Daily number of calories"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.slider.Slider
             android:id="@+id/slider"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
             android:layout_weight="0.3"
-            android:valueFrom="2000"
-            android:valueTo="4000"
             android:stepSize="50"
-            />
+            android:value="2000"
+            android:valueFrom="1000"
+            android:valueTo="4000" />
+
         <TextView
             android:id="@+id/sliderValue"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:text="2000"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.7"/>
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
-
-    <RadioGroup
-        android:id="@+id/radiogroup"
-        android:layout_width="163dp"
-        android:layout_height="144dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_1"
-        tools:layout_editor_absoluteY="233dp">
-
-        <RadioButton
-            android:id="@+id/radioButton1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton1" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton2" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton3" />
-    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,32 +33,11 @@ class SettingsScreen : Fragment(){
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
-        val setting_1: Switch = view.findViewById(R.id.switch_1)
-        val setting_2: CheckBox = view.findViewById(R.id.checkbox_1)
-        val setting_3: Button = view.findViewById(R.id.button_1)
-        val setting_4: RadioGroup = view.findViewById(R.id.radiogroup)
         val slider: Slider = view.findViewById(R.id.slider)
         val sliderValue: TextView = view.findViewById(R.id.sliderValue)
 
         sliderValue.text = mainActivityModel.kcalDailyGoal.toString()
         slider.value = mainActivityModel.kcalDailyGoal.toFloat()
-
-        setting_1.setOnCheckedChangeListener { _, isChecked ->
-            Toast.makeText(requireContext(), "switched $isChecked", Toast.LENGTH_SHORT).show()
-        }
-
-        setting_2.setOnCheckedChangeListener { _, isChecked ->
-            Toast.makeText(requireContext(), "Checked $isChecked", Toast.LENGTH_SHORT).show()
-        }
-
-        setting_3.setOnClickListener {
-            Toast.makeText(requireContext(),"hello", Toast.LENGTH_SHORT).show()
-        }
-
-        setting_4.setOnCheckedChangeListener { _, checkedId ->
-            val radioButton = view.findViewById<RadioButton>(checkedId)
-            Toast.makeText(requireContext(),"radio " + radioButton.text.toString(), Toast.LENGTH_SHORT).show()
-        }
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
