@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,18 +18,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dietapp.Food.ProductQuantityDialog
 import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
+import com.example.dietapp.Products.ProductQuantity
 import com.example.dietapp.R
 import com.example.dietapp.backend.Activity
 import com.example.dietapp.backend.Product
 
 class ActivityScreen : Fragment() {
-
     private lateinit var searchEdit: EditText
     private lateinit var addActivityButton: Button
     private lateinit var activityRecycler: RecyclerView
+    private lateinit var detailsView: TextView
+    private lateinit var addButton: Button
 
+    private lateinit var selectedActivity: Activity
     private lateinit var mainActivityModel: MainActivityModel
-
     private lateinit var filteredItems: MutableList<Activity>
     private lateinit var adapter: ActivityListAdapter
 
@@ -41,7 +44,9 @@ class ActivityScreen : Fragment() {
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
         filteredItems = mainActivityModel.activities.toMutableList()
-        adapter = ActivityListAdapter(filteredItems, ::useActivity, ::editActivity)
+        adapter = ActivityListAdapter(filteredItems, ::showActivityInfo, ::editActivity)
+        detailsView = view.findViewById(R.id.DetailsView)
+        addButton = view.findViewById(R.id.AddButton)
 
         searchEdit = view.findViewById(R.id.SearchEdit)
         addActivityButton = view.findViewById(R.id.AddActivityButton)
@@ -55,6 +60,16 @@ class ActivityScreen : Fragment() {
                 (activity as? MainActivityInterface)?.backToMainButton()
             }
         })
+
+        addButton.setOnClickListener {
+            if(::selectedActivity.isInitialized) {
+                val dialog = ActivityDialog(this, selectedActivity)
+                dialog.show(parentFragmentManager, "ProductQuantityDialog")
+            }
+            else{
+                Toast.makeText(requireContext(),"Please select from list above", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         addActivityButton.setOnClickListener {
             (activity as? MainActivityInterface)?.activityToCreateActivityButton()
@@ -88,15 +103,15 @@ class ActivityScreen : Fragment() {
         (activity as? MainActivityInterface)?.activityToCreateActivityButton()
     }
 
-    fun onNumberChosen(number: Float, activity: Activity) {
+    fun onNumberChosen(number: Float, _activity: Activity) {
         var amount = number.toInt()
-        mainActivityModel.user.AddActivity(amount,activity)
-        println("Chosen number: $amount")
+        mainActivityModel.user.AddActivity(amount,_activity)
+        (activity as? MainActivityInterface)?.backToMainButton()
     }
 
-    fun useActivity(_activity: Activity){
-        val dialog = ActivityDialog(this, _activity)
-        dialog.show(parentFragmentManager, "ActivityDialog")
+    fun showActivityInfo(_activity: Activity){
+        selectedActivity = _activity
+        detailsView.text = _activity.printActivityInfo()
     }
 
     override fun onStop() {
