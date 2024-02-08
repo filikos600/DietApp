@@ -42,7 +42,6 @@ class CreateProductScreen  : Fragment(){
 
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
-        imageView = view.findViewById(R.id.ImageEdit)
         nameEdit = view.findViewById(R.id.NameEdit)
         caloriesEdit = view.findViewById(R.id.CaloriesEdit)
         fatsEdit = view.findViewById(R.id.FatsEdit)

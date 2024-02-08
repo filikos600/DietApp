@@ -50,7 +50,6 @@ class FoodScreen  : Fragment(){
         addNewFoodButton = view.findViewById(R.id.AddNewFoodButton)
         foodRecycler = view.findViewById(R.id.FoodRecycler)
         detailsView = view.findViewById(R.id.DetailsView)
-        imageView = view.findViewById(R.id.ImageView)
         addButton = view.findViewById(R.id.AddButton)
 
         foodRecycler.layoutManager = LinearLayoutManager(context)
@@ -95,6 +94,7 @@ class FoodScreen  : Fragment(){
     }
 
     override fun onStop() {
+        searchRecyclerView("")
         mainActivityModel.foods = adapter.getItems()
         super.onStop()
     }

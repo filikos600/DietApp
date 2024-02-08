@@ -115,6 +115,7 @@ class ActivityScreen : Fragment() {
     }
 
     override fun onStop() {
+        searchRecyclerView("")
         mainActivityModel.activities = adapter.getItems()
         super.onStop()
     }

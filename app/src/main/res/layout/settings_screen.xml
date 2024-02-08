@@ -45,6 +45,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:id="@+id/resetText"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginHorizontal="60dp"
+            android:text="Resets foods, products, and activities to their default state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/resetButton"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset" />
+
     </LinearLayout>
 
 

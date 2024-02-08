@@ -35,9 +35,14 @@ class DishesScreen : Fragment() {
         addFood = view.findViewById(R.id.addFood)
         daySummary = view.findViewById(R.id.daySummary)
 
+        var products_eaten = "Add consumed products using button below\n"
+        var foods_eaten = "Add consumed foods using button below\n"
+        if (mainActivityModel.user.printEatenProducts().isNotBlank())
+            products_eaten = "PRODUCTS:\n" + mainActivityModel.user.printEatenProducts() + "\n"
+        if (mainActivityModel.user.printEatenFoods().isNotBlank())
+            products_eaten = "FOODS:\n" + mainActivityModel.user.printEatenFoods() + "\n"
 
-        val todayEaten = "PRODUCTS:\n" + mainActivityModel.user.printEatenProducts() + "FOODS:\n" + mainActivityModel.user.printEatenFoods()
-        daySummary.text = todayEaten
+        daySummary.text = products_eaten + foods_eaten
         daySummary.movementMethod = ScrollingMovementMethod()
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object: OnBackPressedCallback(true) {

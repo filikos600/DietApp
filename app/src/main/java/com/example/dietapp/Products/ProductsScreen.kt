@@ -94,6 +94,7 @@ class ProductsScreen  : Fragment(){
     }
 
     override fun onStop() {
+        searchRecyclerView("")
         mainActivityModel.products = adapter.getItems()
         super.onStop()
     }

@@ -82,13 +82,8 @@
             android:id="@+id/DetailsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="very detailed information about everything that's important about currently selected product such as i don't really know what but I'm sure tehre's gonna be lots of them here for sure I promise trust me bro" />
-
-        <TextView
-            android:id="@+id/ImageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="insert obrazek here maybe idk?" />
+            android:minHeight="150dp"
+            android:text="Please select a dish to see it's description here" />
 
         <Button
             android:id="@+id/AddButton"

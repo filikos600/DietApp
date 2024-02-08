@@ -22,6 +22,7 @@ import com.google.android.material.slider.Slider
 
 class SettingsScreen : Fragment(){
 
+    private lateinit var resetButton: Button
     private lateinit var mainActivityModel: MainActivityModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +32,7 @@ class SettingsScreen : Fragment(){
 
         val view = inflater.inflate(R.layout.settings_screen, container, false)
 
+        resetButton = view.findViewById(R.id.resetButton)
         mainActivityModel = ViewModelProvider(requireActivity()).get(MainActivityModel::class.java)
 
         val slider: Slider = view.findViewById(R.id.slider)
@@ -44,6 +46,12 @@ class SettingsScreen : Fragment(){
                 (activity as? MainActivityInterface)?.backToMainButton()
             }
         })
+
+        resetButton.setOnClickListener {
+            mainActivityModel.activities = mainActivityModel.initializeActivitiesList()
+            mainActivityModel.products = mainActivityModel.initializeProductList()
+            mainActivityModel.foods = mainActivityModel.initializeFoodsList()
+        }
 
         slider.addOnChangeListener{ _, value, _ ->
             var goal = value.toInt()
