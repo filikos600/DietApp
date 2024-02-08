@@ -2,13 +2,9 @@ package com.example.dietapp
 
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.Settings
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +20,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dietapp.Main.MainActivityInterface
 import com.example.dietapp.Main.MainActivityModel
-import java.io.File
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -80,16 +75,13 @@ class StatsScreen : Fragment(){
         infoView.movementMethod = ScrollingMovementMethod()
 
         val currentDate = calendar.timeInMillis
-        // Update date
         updateDateLabel()
         infoView.text = mainActivityModel.user.printAllUserDetails(calendarToLocalDate())
 
-        // Set up ArrayAdapter for the Spinner
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerItems)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = adapter
 
-        // Set listener for Spinner item selection
         dateSpinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>,
@@ -120,15 +112,38 @@ class StatsScreen : Fragment(){
         }
 
         generateButton.setOnClickListener {
-            report = ""
+            var temp_calendar = Calendar.getInstance()
+            temp_calendar.time = calendar.time
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+            report = "Selected timeframe"
             when(currentItemIndex) {
-                0 -> report = mainActivityModel.user.getUserInfo()
-                1 -> report = mainActivityModel.user.getUserInfo(_Range = 7)
-                2 -> report = mainActivityModel.user.getUserInfo(_Range = 30)
-                3 -> report = mainActivityModel.user.getUserInfo(_Range = 90)
-                4 -> report = mainActivityModel.user.getUserInfo(_Range = 90)
-                5 -> report = mainActivityModel.user.getUserInfo(_Range = 180)
-                6 -> report = mainActivityModel.user.getUserInfo(_Range = 365)
+                0 -> report = "Selected day: " + dateFormat.format(temp_calendar.time)+ "\n" + mainActivityModel.user.getUserInfo()
+                1 -> {
+                    var end_date = temp_calendar.time
+                    temp_calendar.add(Calendar.DAY_OF_YEAR, -7)
+                    var start_time = temp_calendar.time
+                    report = "Selected timeframe: " + dateFormat.format(start_time) + " - " + dateFormat.format(end_date) + "\n" + mainActivityModel.user.getUserInfo(_Range = 7)}
+                2 -> {
+                    var end_date = temp_calendar.time
+                    temp_calendar.add(Calendar.DAY_OF_YEAR, -30)
+                    var start_time = temp_calendar.time
+                    report = "Selected timeframe: " + dateFormat.format(start_time) + " - " + dateFormat.format(end_date) + "\n" + mainActivityModel.user.getUserInfo(_Range = 30)}
+                3 ->  {
+                    var end_date = temp_calendar.time
+                    temp_calendar.add(Calendar.DAY_OF_YEAR, -90)
+                    var start_time = temp_calendar.time
+                    report = "Selected timeframe: " + dateFormat.format(start_time) + " - " + dateFormat.format(end_date) + "\n" + mainActivityModel.user.getUserInfo(_Range = 90)}
+                4 ->  {
+                    var end_date = temp_calendar.time
+                    temp_calendar.add(Calendar.DAY_OF_YEAR, -180)
+                    var start_time = temp_calendar.time
+                    report = "Selected timeframe: " + dateFormat.format(start_time) + " - " + dateFormat.format(end_date) + "\n" + mainActivityModel.user.getUserInfo(_Range = 180)}
+                5 ->  {
+                    var end_date = temp_calendar.time
+                    temp_calendar.add(Calendar.DAY_OF_YEAR, -365)
+                    var start_time = temp_calendar.time
+                    report = "Selected timeframe: " + dateFormat.format(start_time) + " - " + dateFormat.format(end_date) + "\n" + mainActivityModel.user.getUserInfo(_Range = 365)}
             }
             requestPermission()
         }
@@ -168,7 +183,7 @@ class StatsScreen : Fragment(){
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "text/plain"
-            putExtra(Intent.EXTRA_TITLE, "example.txt")
+            putExtra(Intent.EXTRA_TITLE, "report.txt")
         }
         createFileLauncher.launch(intent)
     }
