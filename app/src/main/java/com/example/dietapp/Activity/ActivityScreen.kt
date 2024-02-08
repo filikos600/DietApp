@@ -85,6 +85,8 @@ class ActivityScreen : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        searchRecyclerView("")
+
         return view
     }
 

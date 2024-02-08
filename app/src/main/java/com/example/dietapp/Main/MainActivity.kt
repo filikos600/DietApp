@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val kcal = mainActivityModel.user.getKcalBalance()
         val progress = (kcal / mainActivityModel.kcalDailyGoal) * 100
         var text = ""
-        text += kcal.toString()
+        text += formatFloat(kcal,2)
         text += " kcal ( " + formatFloat(progress,2) + " % )"
         return text
     }

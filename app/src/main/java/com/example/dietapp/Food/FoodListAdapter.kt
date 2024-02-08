@@ -51,6 +51,7 @@ class FoodListAdapter (private val items: MutableList<Food>, private val showFoo
 
     fun setFilteredItems(filteredItems: MutableList<Food>) {
         items.clear()
+        filteredItems.sortBy{it.name}
         items.addAll(filteredItems)
         notifyDataSetChanged()
     }

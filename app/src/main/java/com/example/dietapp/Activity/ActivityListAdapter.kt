@@ -45,6 +45,7 @@ class ActivityListAdapter(private val items: MutableList<Activity>, private val 
 
     fun setFilteredItems(filteredItems: MutableList<Activity>) {
         items.clear()
+        filteredItems.sortBy{it.name}
         items.addAll(filteredItems)
         notifyDataSetChanged()
     }

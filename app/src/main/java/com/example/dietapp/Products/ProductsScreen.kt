@@ -85,6 +85,8 @@ class ProductsScreen  : Fragment(){
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        searchRecyclerView("")
+
         return view
     }
 

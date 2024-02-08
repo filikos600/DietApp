@@ -45,6 +45,7 @@ class ProductsListAdapter(private val items: MutableList<Product>, private val s
 
     fun setFilteredItems(filteredItems: MutableList<Product>) {
         items.clear()
+        filteredItems.sortBy{it.name}
         items.addAll(filteredItems)
         notifyDataSetChanged()
     }

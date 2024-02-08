@@ -128,12 +128,12 @@ class User(
     fun getUserInfo(_refrenceDay: LocalDate = LocalDate.now(), _Range: Long = 1): String
     {
         var text = ""
-        text += "Calories balance: ${getKcalBalance(_refrenceDay, _Range)} kcal\n"
-        text += "Carbohydrates: ${getCarbohydatesIntake(_refrenceDay, _Range)} g\n"
-        text += "Sugar: ${getSugarIntake(_refrenceDay, _Range)} g\n"
-        text += "Fats: ${getFatsIntake(_refrenceDay, _Range)} g\n"
-        text += "Proteins: ${getProteinIntake(_refrenceDay, _Range)} g\n"
-        text += "Salt: ${getSaltIntake(_refrenceDay, _Range)} g\n"
+        text += "Calories balance: ${formatFloat(getKcalBalance(_refrenceDay, _Range),2)} kcal\n"
+        text += "Carbohydrates: ${formatFloat(getCarbohydatesIntake(_refrenceDay, _Range),2)} g\n"
+        text += "Sugar: ${formatFloat(getSugarIntake(_refrenceDay, _Range),2)} g\n"
+        text += "Fats: ${formatFloat(getFatsIntake(_refrenceDay, _Range),2)} g\n"
+        text += "Proteins: ${formatFloat(getProteinIntake(_refrenceDay, _Range),2)} g\n"
+        text += "Salt: ${formatFloat(getSaltIntake(_refrenceDay, _Range),2)} g\n"
         return text
     }
 
@@ -175,6 +175,11 @@ class User(
         text += "FOODS:\n" + printEatenFoods(_refrenceDay,_Range) + "\n"
         text += "ACTIVITIES:\n" + printDoneActivities(_refrenceDay,_Range)
         return text
+    }
+
+    private fun formatFloat(input: Float, scale: Int): String
+    {
+        return "%.${scale}f".format(input)
     }
 
 }
